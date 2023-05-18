@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\AbstractServiceRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: AbstractServiceRepository::class)]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
+#[ORM\DiscriminatorMap([
+	'abstractService' => 'AbstractService',
+	'mumble' => 'App\Entity\Services\Mumble\MumbleService',
+	'wireguard' => 'App\Entity\Services\Wireguard\WireguardService',
+])]
+abstract class AbstractService {
+
+	#[ORM\Id]
+	#[ORM\GeneratedValue]
+	#[ORM\Column]
+	private ?int $id = null;
+
+	public function getId(): ?int {
+		return $this->id;
+	}
+
+	#[ORM\ManyToOne(inversedBy: 'services')]
+	private Server $server;
+
+	#[ORM\Column]
+	private string $internal_service_name;
+
+	abstract public function getServiceName(): string;
+
+	public function getServer(): Server {
+		return $this->server;
+	}
+
+	public function setServer(?Server $server): self {
+		$this->server = $server;
+
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getInternalServiceName(): string {
+		return $this->internal_service_name;
+	}
+
+	/**
+	 * @param string $internal_service_name
+	 */
+	public function setInternalServiceName(string $internal_service_name): void {
+		$this->internal_service_name = $internal_service_name;
+	}
+
+	public function getPropertiesList(): array {
+		return get_object_vars($this);
+	}
+
+}
