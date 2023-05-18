@@ -13,9 +13,12 @@ class HomeController extends AController {
 		return $this->render('base.html.twig');
 	}
 
-	#[Route('/legal')]
+	#[Route('/legal', name: 'legal')]
 	public function legal(): Response {
 		return $this->render('pages/legal.html.twig');
 	}
+
+	#[Route('/contact', name: 'contact')]
+	public function contact(): Response {}
 
 }
