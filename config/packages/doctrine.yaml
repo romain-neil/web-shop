@@ -15,7 +15,13 @@ doctrine:
                 user: webshop
                 password: tresder44@G
                 driver: pdo_pgsql
-                server_version: 13
+            intranet:
+                dbname: service_provisioner
+                host: 192.168.1.43
+                port: 5432
+                user: sp
+                password: 5pRiomRiGf
+                driver: pdo_pgsql
     orm:
         default_entity_manager: ~
         auto_generate_proxy_classes: true
