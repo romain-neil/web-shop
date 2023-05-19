@@ -33,6 +33,8 @@ class HomeController extends AController {
 			try {
 				$contactService->sendContactEmail($data, $request->getClientIp());
 				$this->addFlash('success', 'Le message a été envoyé. Merci');
+
+				return $this->redirectToRoute('home_contact');
 			} catch (TransportExceptionInterface) {
 				$this->addFlash('negative', 'Une erreur est survenue lors de l\'envoie du message. Merci de réessayer plus tard');
 			}
