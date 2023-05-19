@@ -31,4 +31,15 @@
     <body>
         {% block body %}{% endblock %}
     </body>
+    {% block scripts %}{% endblock %}
+    <script>
+        $('.message .close')
+            .on('click', function() {
+                $(this)
+                    .closest('.message')
+                    .transition('fade')
+                ;
+            })
+        ;
+    </script>
 </html>
