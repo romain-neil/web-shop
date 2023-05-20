@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Infra\ServiceIp;
 use App\Repository\ServerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -29,8 +30,12 @@ class Server implements \Stringable {
 	#[ORM\Column(type: Types::GUID)]
 	private ?string $uuid = null;
 
+	#[ORM\OneToMany(mappedBy: 'server', targetEntity: ServiceIp::class)]
+	private Collection $ip_resources;
+
 	public function __construct() {
 		$this->services = new ArrayCollection();
+		$this->ip_resources = new ArrayCollection();
 	}
 
 	public function getId(): ?int {
@@ -105,6 +110,33 @@ class Server implements \Stringable {
 
 	public function setUuid(string $uuid): self {
 		$this->uuid = $uuid;
+
+		return $this;
+	}
+
+	/**
+	 * @return Collection<int, ServiceIp>
+	 */
+	public function getIpResources(): Collection {
+		return $this->ip_resources;
+	}
+
+	public function addIpResource(ServiceIp $ipResource): self {
+		if (!$this->ip_resources->contains($ipResource)) {
+			$this->ip_resources->add($ipResource);
+			$ipResource->setServer($this);
+		}
+
+		return $this;
+	}
+
+	public function removeIpResource(ServiceIp $ipResource): self {
+		if ($this->ip_resources->removeElement($ipResource)) {
+			// set the owning side to null (unless already changed)
+			if ($ipResource->getServer() === $this) {
+				$ipResource->setServer(null);
+			}
+		}
 
 		return $this;
 	}
