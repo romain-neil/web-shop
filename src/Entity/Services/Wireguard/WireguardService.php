@@ -48,4 +48,7 @@ class WireguardService extends AbstractService {
 		return $this;
 	}
 
+	public function __toString(): string {
+		return 'wg';
+	}
 }

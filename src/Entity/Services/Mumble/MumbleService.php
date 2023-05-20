@@ -35,4 +35,8 @@ class MumbleService extends AbstractService {
 		return $this;
 	}
 
+	public function __toString(): string {
+		return 'mumble';
+	}
+
 }
