@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 	'mumble' => 'App\Entity\Services\Mumble\MumbleService',
 	'wireguard' => 'App\Entity\Services\Wireguard\WireguardService',
 ])]
-abstract class AbstractService {
+abstract class AbstractService implements \Stringable {
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
