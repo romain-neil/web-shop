@@ -32,6 +32,13 @@ class ServiceIp implements \Stringable {
 	#[ORM\ManyToOne(inversedBy: 'ip_resources')]
 	private ?Server $server = null;
 
+	/**
+	 * Is the ip a block ?
+	 * @var bool|null
+	 */
+	#[ORM\Column]
+	private ?bool $is_block = null;
+
 	public function getId(): ?int {
 		return $this->id;
 	}
@@ -76,12 +83,6 @@ class ServiceIp implements \Stringable {
 		return $this;
 	}
 
-	public function __toString(): string {
-		$ip = IP::create($this->ip);
-
-		return $ip->humanReadable();
-	}
-
 	public function getServer(): ?Server {
 		return $this->server;
 	}
@@ -90,6 +91,22 @@ class ServiceIp implements \Stringable {
 		$this->server = $server;
 
 		return $this;
+	}
+
+	public function isBlock(): ?bool {
+		return $this->is_block;
+	}
+
+	public function setIsBlock(bool $is_block): self {
+		$this->is_block = $is_block;
+
+		return $this;
+	}
+
+	public function __toString(): string {
+		$ip = IP::create($this->ip);
+
+		return $ip->humanReadable();
 	}
 
 }
