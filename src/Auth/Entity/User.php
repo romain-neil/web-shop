@@ -63,10 +63,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
 	#[ORM\Column(name: 'is_totp_enabled', type: 'boolean', options: ['default' => false])]
 	private ?bool $isTotpEnabled = null;
 
-	public function __construct() {
-		$this->notifications = new ArrayCollection();
-	}
-
 	public function getId(): ?int {
 		return $this->id;
 	}
