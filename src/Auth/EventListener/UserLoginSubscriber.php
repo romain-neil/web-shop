@@ -4,6 +4,7 @@ namespace Auth\EventListener;
 
 use Auth\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
@@ -11,8 +12,8 @@ class UserLoginSubscriber implements EventSubscriberInterface {
 
 	private EntityManagerInterface $em;
 
-	public function __construct(EntityManagerInterface $em) {
-		$this->em = $em;
+	public function __construct(ManagerRegistry $doctrine) {
+		$this->em = $doctrine->getManager('intranet');
 	}
 
 	public static function getSubscribedEvents(): array {
