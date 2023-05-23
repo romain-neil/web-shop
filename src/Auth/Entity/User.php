@@ -47,22 +47,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
 	#[ORM\Column(type: 'string', length: 255)]
 	private string $password;
 
-	#[ORM\Column(type: 'boolean', options: ['default' => false])]
+	#[ORM\Column(name: 'is_activated', type: 'boolean', options: ['default' => false])]
 	private bool $isActivated;
 
-	#[ORM\Column(type: 'datetime')]
+	#[ORM\Column(name: 'register_date', type: 'datetime')]
 	private DateTimeInterface $registerDate;
 
-	#[ORM\Column(type: 'datetime', nullable: true)]
+	#[ORM\Column(name: 'last_login_date', type: 'datetime', nullable: true)]
 	private ?DateTimeInterface $lastLoginDate;
 
 	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $mobile = null;
 
-	#[ORM\Column(length: 255, nullable: true)]
+	#[ORM\Column(name: 'totp_secret', length: 255, nullable: true)]
 	private ?string $totpSecret = null;
 
-	#[ORM\Column(type: 'boolean', options: ['default' => false])]
+	#[ORM\Column(name: 'is_totp_enabled', type: 'boolean', options: ['default' => false])]
 	private ?bool $isTotpEnabled = null;
 
 	public function __construct() {

@@ -16,7 +16,7 @@ class Customer extends User {
 	#[ORM\Column]
 	private ?int $id = null;
 
-	#[ORM\Column(type: 'integer', unique: true, nullable: true)]
+	#[ORM\Column(name: 'internal_client_id', type: 'integer', unique: true, nullable: true)]
 	private ?int $internalClientId;
 
 	#[ORM\Column(type: 'string', length: 255, nullable: true)]
