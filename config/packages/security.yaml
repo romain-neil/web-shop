@@ -4,24 +4,15 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        chain_provider:
-            chain:
-                providers: [ app_staff_provider, app_customer_provider ]
-        app_staff_provider:
-            entity:
-                class: App\Entity\Staff
-                property: email
-        app_customer_provider:
-            entity:
-                class: App\Entity\Customer
-                property: email
+        auth_provider:
+            id: Auth\Security\UserProvider
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: chain_provider
+            provider: auth_provider
             user_checker: App\Security\UserChecker
 
             form_login:
