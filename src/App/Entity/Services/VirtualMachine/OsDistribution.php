@@ -6,7 +6,7 @@ use App\Repository\Services\VirtualMachine\OsDistributionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OsDistributionRepository::class)]
-class OsDistribution {
+class OsDistribution implements \Stringable {
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
@@ -67,6 +67,18 @@ class OsDistribution {
 		$this->name = $name;
 
 		return $this;
+	}
+
+	public function __toString(): string {
+		return sprintf('%s %s', $this->name, $this->version);
+	}
+
+	/**
+	 * Return the OS filename in proxmox
+	 * @return string
+	 */
+	public function getIsoFilename(): string {
+		return implode('_', [$this->name, $this->version]) . '.iso';
 	}
 
 }
