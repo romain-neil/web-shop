@@ -1,10 +1,7 @@
 <?php
-namespace App\Entity;
+namespace Auth\Entity;
 
-use App\Entity\Support\SupportConversation;
-use App\Repository\CustomerRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Auth\Repository\CustomerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 

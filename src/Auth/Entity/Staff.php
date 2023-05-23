@@ -1,7 +1,7 @@
 <?php
-namespace App\Entity;
+namespace Auth\Entity;
 
-use App\Repository\StaffRepository;
+use Auth\Repository\StaffRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StaffRepository::class)]

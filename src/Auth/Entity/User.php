@@ -1,7 +1,7 @@
 <?php
-namespace App\Entity;
+namespace Auth\Entity;
 
-use App\Repository\UserRepository;
+use Auth\Repository\UserRepository;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,8 +19,8 @@ use function count;
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
 #[ORM\DiscriminatorMap([
-	'staff' => 'Staff',
-	'cust' => 'Customer'
+	'staff' => 'Auth\Entity\Staff',
+	'cust' => 'Auth\Entity\Customer'
 ])]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface, EquatableInterface {
