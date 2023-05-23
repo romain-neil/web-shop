@@ -1,8 +1,8 @@
 <?php
 
-namespace App\EventListener;
+namespace Auth\EventListener;
 
-use App\Entity\User;
+use Auth\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
