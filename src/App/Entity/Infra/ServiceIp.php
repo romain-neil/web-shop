@@ -23,9 +23,6 @@ class ServiceIp implements \Stringable {
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
 	private ?\DateTimeInterface $date_start_usage = null;
 
-	#[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-	private ?\DateTimeInterface $date_end_usage = null;
-
 	#[ORM\ManyToOne(inversedBy: 'ips')]
 	private ?AbstractService $related_service = null;
 
@@ -59,16 +56,6 @@ class ServiceIp implements \Stringable {
 
 	public function setDateStartUsage(\DateTimeInterface $date_start_usage): self {
 		$this->date_start_usage = $date_start_usage;
-
-		return $this;
-	}
-
-	public function getDateEndUsage(): ?\DateTimeInterface {
-		return $this->date_end_usage;
-	}
-
-	public function setDateEndUsage(?\DateTimeInterface $date_end_usage): self {
-		$this->date_end_usage = $date_end_usage;
 
 		return $this;
 	}
