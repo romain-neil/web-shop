@@ -2,10 +2,11 @@
 
 namespace App\Entity\Services\VirtualMachine;
 
-use App\Repository\Services\VirtualMachine\OsDistributionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\Services\VirtualMachine\OsDistributionRepository;
 
 #[ORM\Entity(repositoryClass: OsDistributionRepository::class)]
+#[ORM\Table(name: 'shop.os_distribution')]
 class OsDistribution implements \Stringable {
 
 	#[ORM\Id]

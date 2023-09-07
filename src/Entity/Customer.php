@@ -1,11 +1,14 @@
 <?php
-namespace Auth\Entity;
+namespace App\Entity;
 
-use Auth\Repository\CustomerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CustomerRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
+#[ORM\Table(name: 'intranet.customer')]
 class Customer extends User {
 
 	#[ORM\Id]
