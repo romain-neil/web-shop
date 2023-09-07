@@ -30,6 +30,9 @@ abstract class AbstractService implements \Stringable {
 	#[ORM\Column]
 	private string $internal_service_name;
 
+	#[ORM\ManyToOne(inversedBy: 'services')]
+	#[ORM\JoinColumn(nullable: false)]
+	private ?Customer $customer = null;
 	abstract public function getServiceName(): string;
 
 	public function getServer(): Server {
@@ -58,6 +61,16 @@ abstract class AbstractService implements \Stringable {
 
 	public function getPropertiesList(): array {
 		return get_object_vars($this);
+	}
+
+	public function getCustomer(): ?Customer {
+		return $this->customer;
+	}
+
+	public function setCustomer(?Customer $customer): self {
+		$this->customer = $customer;
+
+		return $this;
 	}
 
 }

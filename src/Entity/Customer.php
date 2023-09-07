@@ -48,6 +48,13 @@ class Customer extends User {
 	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $vat_number = null;
 
+	#[ORM\OneToMany(mappedBy: 'customer', targetEntity: AbstractService::class)]
+	private Collection $services;
+
+	public function __construct() {
+		$this->services = new ArrayCollection();
+	}
+
 	public function getId(): ?int {
 		return $this->id;
 	}
@@ -142,6 +149,33 @@ class Customer extends User {
 
 	public function setVatNumber(?string $vat_number): self {
 		$this->vat_number = $vat_number;
+
+		return $this;
+	}
+
+	/**
+	 * @return Collection<int, AbstractService>
+	 */
+	public function getServices(): Collection {
+		return $this->services;
+	}
+
+	public function addService(AbstractService $service): self {
+		if (!$this->services->contains($service)) {
+			$this->services->add($service);
+			$service->setCustomer($this);
+		}
+
+		return $this;
+	}
+
+	public function removeService(AbstractService $service): self {
+		if ($this->services->removeElement($service)) {
+			// set the owning side to null (unless already changed)
+			if ($service->getCustomer() === $this) {
+				$service->setCustomer(null);
+			}
+		}
 
 		return $this;
 	}
