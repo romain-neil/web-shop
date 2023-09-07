@@ -2,14 +2,15 @@
 
 namespace App\Entity\Infra;
 
-use App\Entity\AbstractService;
-use App\Entity\Server;
-use App\Repository\Infra\ServiceIpRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use PhpIP\IP;
+use App\Entity\AbstractService;
+use App\Entity\Server;
+use App\Repository\Infra\ServiceIpRepository;
 
 #[ORM\Entity(repositoryClass: ServiceIpRepository::class)]
+#[ORM\Table(name: 'shop.service_ip')]
 class ServiceIp implements \Stringable {
 
 	#[ORM\Id]
