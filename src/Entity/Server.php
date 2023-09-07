@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ServerRepository::class)]
+#[ORM\Table(name: 'shop.server')]
 class Server implements \Stringable {
 
 	#[ORM\Id]
