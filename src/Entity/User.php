@@ -1,7 +1,7 @@
 <?php
-namespace Auth\Entity;
+namespace App\Entity;
 
-use Auth\Repository\UserRepository;
+use App\Repository\UserRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Scheb\TwoFactorBundle\Model\Totp\TotpConfiguration;
@@ -17,10 +17,10 @@ use function count;
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
 #[ORM\DiscriminatorMap([
-	'staff' => 'Auth\Entity\Staff',
-	'cust' => 'Auth\Entity\Customer'
+	'staff' => 'Staff',
+	'cust' => 'Customer'
 ])]
-#[ORM\Table(name: '`user`')]
+#[ORM\Table(name: 'intranet.`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface, EquatableInterface {
 
 	#[ORM\Id]
@@ -45,22 +45,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
 	#[ORM\Column(type: 'string', length: 255)]
 	private string $password;
 
-	#[ORM\Column(name: 'is_activated', type: 'boolean', options: ['default' => false])]
+	#[ORM\Column(type: 'boolean', options: ['default' => false])]
 	private bool $isActivated;
 
-	#[ORM\Column(name: 'register_date', type: 'datetime')]
+	#[ORM\Column(type: 'datetime')]
 	private DateTimeInterface $registerDate;
 
-	#[ORM\Column(name: 'last_login_date', type: 'datetime', nullable: true)]
+	#[ORM\Column(type: 'datetime', nullable: true)]
 	private ?DateTimeInterface $lastLoginDate;
 
 	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $mobile = null;
 
-	#[ORM\Column(name: 'totp_secret', length: 255, nullable: true)]
+	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $totpSecret = null;
 
-	#[ORM\Column(name: 'is_totp_enabled', type: 'boolean', options: ['default' => false])]
+	#[ORM\Column(type: 'boolean', options: ['default' => false])]
 	private ?bool $isTotpEnabled = null;
 
 	public function getId(): ?int {

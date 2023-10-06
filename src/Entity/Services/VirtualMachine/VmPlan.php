@@ -2,16 +2,18 @@
 
 namespace App\Entity\Services\VirtualMachine;
 
-use App\Repository\Services\VirtualMachine\VmPlanRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Services\AbstractServicePlan;
+use App\Repository\Services\VirtualMachine\VmPlanRepository;
 
 #[ORM\Entity(repositoryClass: VmPlanRepository::class)]
-class VmPlan {
+#[ORM\Table(name: 'shop.vm_plan')]
+class VmPlan extends AbstractServicePlan {
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
 	#[ORM\Column]
-	private ?int $id = null;
+	protected ?int $id = null;
 
 	#[ORM\Column]
 	private ?int $storage = null;
@@ -24,12 +26,6 @@ class VmPlan {
 
 	#[ORM\Column]
 	private ?int $memory = null;
-
-	#[ORM\Column]
-	private ?int $price = null;
-
-	#[ORM\Column]
-	private ?string $commercial_name = null;
 
 	public function getId(): ?int {
 		return $this->id;
@@ -75,28 +71,8 @@ class VmPlan {
 		return $this;
 	}
 
-	public function getPrice(): ?int {
-		return $this->price;
-	}
-
-	public function setPrice(int $price): self {
-		$this->price = $price;
-
-		return $this;
-	}
-
-	/**
-	 * @return string|null
-	 */
-	public function getCommercialName(): ?string {
-		return $this->commercial_name;
-	}
-
-	/**
-	 * @param string|null $commercial_name
-	 */
-	public function setCommercialName(?string $commercial_name): void {
-		$this->commercial_name = $commercial_name;
-	}
+//    public function __toString(): string {
+//        return "";
+//    }
 
 }

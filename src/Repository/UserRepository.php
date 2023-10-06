@@ -1,9 +1,9 @@
 <?php
-namespace Auth\Repository;
+namespace App\Repository;
 
-use Auth\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\User;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)

@@ -2,9 +2,9 @@
 
 namespace App\Repository\Infra;
 
-use App\Entity\Infra\ServiceIp;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Infra\ServiceIp;
 
 /**
  * @extends ServiceEntityRepository<ServiceIp>

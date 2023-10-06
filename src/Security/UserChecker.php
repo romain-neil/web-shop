@@ -1,7 +1,7 @@
 <?php
 namespace App\Security;
 
-use Auth\Entity\User;
+use App\Entity\User;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;

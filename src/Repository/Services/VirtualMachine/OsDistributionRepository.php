@@ -2,9 +2,9 @@
 
 namespace App\Repository\Services\VirtualMachine;
 
-use App\Entity\Services\VirtualMachine\OsDistribution;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Services\VirtualMachine\OsDistribution;
 
 /**
  * @extends ServiceEntityRepository<OsDistribution>

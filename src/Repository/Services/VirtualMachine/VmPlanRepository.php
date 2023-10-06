@@ -2,9 +2,9 @@
 
 namespace App\Repository\Services\VirtualMachine;
 
-use App\Entity\Services\VirtualMachine\VmPlan;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Services\VirtualMachine\VmPlan;
 
 /**
  * @extends ServiceEntityRepository<VmPlan>

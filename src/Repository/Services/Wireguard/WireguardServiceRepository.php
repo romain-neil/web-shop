@@ -1,9 +1,9 @@
 <?php
 namespace App\Repository\Services\Wireguard;
 
-use App\Entity\Services\Wireguard\WireguardService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Services\Wireguard\WireguardService;
 
 /**
  * @extends ServiceEntityRepository<WireguardService>

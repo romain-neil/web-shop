@@ -1,9 +1,9 @@
 <?php
-namespace Auth\Repository;
+namespace App\Repository;
 
-use Auth\Entity\Customer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Customer;
 
 /**
  * @extends ServiceEntityRepository<Customer>

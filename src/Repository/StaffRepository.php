@@ -1,10 +1,10 @@
 <?php
 
-namespace Auth\Repository;
+namespace App\Repository;
 
-use Auth\Entity\Staff;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use src\Entity\Staff;
 
 /**
  * @extends ServiceEntityRepository<Staff>
