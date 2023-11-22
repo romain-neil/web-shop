@@ -1,12 +1,15 @@
 {% extends 'blank_base.html.twig' %}
 
 {% block main_body %}
-    {% include '_partials/flashs.html.twig' %}
     {% include '_partials/menu.html.twig' %}
 
-    <div class="ui main text container">
+    <div class="ui main container">
+        {% include '_partials/flashs.html.twig' %}
+
         {% block body %}{% endblock %}
     </div>
+{% endblock %}
 
+{% block main_footer %}
     {% include '_partials/footer.html.twig' %}
 {% endblock %}
