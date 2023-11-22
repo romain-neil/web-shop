@@ -29,7 +29,7 @@ class Server implements \Stringable {
 	private string $name;
 
 	#[ORM\Column(nullable: true)]
-	private ?int $node_id = null;
+	private ?string $node_id = null;
 
 	#[ORM\Column(type: Types::GUID)]
 	private ?string $uuid = null;
@@ -93,11 +93,11 @@ class Server implements \Stringable {
 		return $this;
 	}
 
-	public function getNodeId(): ?int {
+	public function getNodeId(): ?string {
 		return $this->node_id;
 	}
 
-	public function setNodeId(?int $node_id): self {
+	public function setNodeId(?string $node_id): string {
 		$this->node_id = $node_id;
 
 		return $this;
