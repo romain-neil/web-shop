@@ -37,6 +37,11 @@
         {% endblock %}
     </body>
     {% block scripts %}{% endblock %}
+    <footer>
+        {% block main_footer %}
+            {% block footer %}{% endblock %}
+        {% endblock %}
+    </footer>
     <script>
         $('.message .close')
             .on('click', function () {
