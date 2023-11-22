@@ -1,0 +1,149 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OrderRepository;
+
+#[ORM\Entity(repositoryClass: OrderRepository::class)]
+#[ORM\Table(name: 'shop.`order`')]
+class Order {
+
+	#[ORM\Id]
+	#[ORM\GeneratedValue]
+	#[ORM\Column]
+	private ?int $id = null;
+
+	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
+	private ?\DateTimeInterface $date_created = null;
+
+	#[ORM\Column]
+	private ?bool $paid = null;
+
+	#[ORM\Column]
+	private ?bool $in_cart = null;
+
+	#[ORM\OneToMany(mappedBy: 'related_order', targetEntity: AbstractService::class)]
+	private Collection $services;
+
+	#[ORM\ManyToOne]
+	#[ORM\JoinColumn(nullable: false)]
+	private ?Customer $customer = null;
+
+	#[ORM\Column(length: 255, nullable: true)]
+	private ?string $contrat_ref = null;
+
+	#[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+	private ?\DateTimeInterface $date_end_valid = null;
+
+	public function __construct() {
+		$this->services = new ArrayCollection();
+	}
+
+	public function getId(): ?int {
+		return $this->id;
+	}
+
+	public function getDateCreated(): ?\DateTimeInterface {
+		return $this->date_created;
+	}
+
+	public function setDateCreated(\DateTimeInterface $date_created): self {
+		$this->date_created = $date_created;
+
+		return $this;
+	}
+
+	public function isPaid(): ?bool {
+		return $this->paid;
+	}
+
+	public function setPaid(bool $paid): self {
+		$this->paid = $paid;
+
+		return $this;
+	}
+
+	public function isInCart(): ?bool {
+		return $this->in_cart;
+	}
+
+	public function setInCart(bool $in_cart): self {
+		$this->in_cart = $in_cart;
+
+		return $this;
+	}
+
+	/**
+	 * @return Collection<int, AbstractService>
+	 */
+	public function getServices(): Collection {
+		return $this->services;
+	}
+
+	public function addService(AbstractService $service): self {
+		if (!$this->services->contains($service)) {
+			$this->services->add($service);
+			$service->setRelatedOrder($this);
+		}
+
+		return $this;
+	}
+
+	public function removeService(AbstractService $service): self {
+		if ($this->services->removeElement($service)) {
+			// set the owning side to null (unless already changed)
+			if ($service->getRelatedOrder() === $this) {
+				$service->setRelatedOrder(null);
+			}
+		}
+
+		return $this;
+	}
+
+	public function getCustomer(): ?Customer {
+		return $this->customer;
+	}
+
+	public function setCustomer(?Customer $customer): self {
+		$this->customer = $customer;
+
+		return $this;
+	}
+
+	public function getTotal(): int {
+		$total = 0;
+
+		$services = $this->getServices();
+
+		foreach ($services as $service) {
+			$total += $service->getPlan()->getPrice();
+		}
+
+		return $total;
+	}
+
+	public function getContratRef(): ?string {
+		return $this->contrat_ref;
+	}
+
+	public function setContratRef(?string $contrat_ref): self {
+		$this->contrat_ref = $contrat_ref;
+
+		return $this;
+	}
+
+	public function getDateEndValid(): ?\DateTimeInterface {
+		return $this->date_end_valid;
+	}
+
+	public function setDateEndValid(?\DateTimeInterface $date_end_valid): self {
+		$this->date_end_valid = $date_end_valid;
+
+		return $this;
+	}
+
+}
