@@ -19,6 +19,15 @@ class AController extends AbstractController {
 
 	public function getSession(): SessionInterface {
 		return $this->session;
+	/**
+	 * Return a ressource with the given id
+	 * @param string $name
+	 * @param int $id
+	 * @return object|null
+	 */
+	public function getRessource(string $name, int $id): ?object {
+		return $this->em->getRepository($name)->findOneBy(['id' => $id]);
+
 	}
 
 }
