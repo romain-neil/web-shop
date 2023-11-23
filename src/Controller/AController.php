@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 
 class AController extends AbstractController {
 
-	private SessionInterface $session;
+	protected MailerInterface $mailer;
 
-	public function __construct(RequestStack $requestStack) {
-		$this->session =$requestStack->getSession();
+	protected EntityManagerInterface $em;
+
+	public function __construct(MailerInterface $mailer, EntityManagerInterface $em) {
+		$this->mailer = $mailer;
+		$this->em = $em;
 	}
 
 	public function getSession(): SessionInterface {
