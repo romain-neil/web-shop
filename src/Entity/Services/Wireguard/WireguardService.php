@@ -1,18 +1,19 @@
 <?php
-
 namespace App\Entity\Services\Wireguard;
 
+use App\Entity\Services\AbstractServicePlan;
+use Doctrine\ORM\Mapping as ORM;
 use App\Entity\AbstractService;
 use App\Repository\Services\Wireguard\WireguardServiceRepository;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WireguardServiceRepository::class)]
-class WireguardService extends AbstractService {
+#[ORM\Table(name: 'shop.wg_service')]
+class WireguardService extends AbstractService implements \Stringable {
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
 	#[ORM\Column]
-	private ?int $id = null;
+	protected ?int $id = null;
 
 	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $ipv4 = null;
@@ -47,5 +48,18 @@ class WireguardService extends AbstractService {
 
 		return $this;
 	}
-
+	
+	public function getPlan(): ?AbstractServicePlan {
+		// TODO: Implement getPlan() method.
+		return null;
+	}
+	
+	public function setPlan(?AbstractServicePlan $plan) {
+		// TODO: Implement setPlan() method.
+	}
+	
+	public function __toString(): string {
+		return 'wg';
+	}
+	
 }

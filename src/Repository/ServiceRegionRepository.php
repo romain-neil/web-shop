@@ -2,9 +2,9 @@
 
 namespace App\Repository;
 
-use App\Entity\ServiceRegion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\ServiceRegion;
 
 /**
  * @extends ServiceEntityRepository<ServiceRegion>
@@ -14,15 +14,13 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method ServiceRegion[]    findAll()
  * @method ServiceRegion[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ServiceRegionRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class ServiceRegionRepository extends ServiceEntityRepository {
+
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, ServiceRegion::class);
     }
 
-    public function add(ServiceRegion $entity, bool $flush = false): void
-    {
+    public function add(ServiceRegion $entity, bool $flush = false): void {
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
@@ -30,8 +28,7 @@ class ServiceRegionRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(ServiceRegion $entity, bool $flush = false): void
-    {
+    public function remove(ServiceRegion $entity, bool $flush = false): void {
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {

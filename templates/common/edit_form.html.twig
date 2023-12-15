@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	{{ form_start(form) }}
+		{{ form_rest(form) }}
+
+		<input type="submit" value="{% if label is not null %}{{ label }}{% else %}Editer{% endif %}">
+
+	{{ form_end(form) }}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Liste des régions' %}
+
+{% block body %}
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Nom de la région</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for region in regions %}
+				<tr>
+					<th scope="row">{{ region.id }}</th>
+					<td>{{ region.name }}</td>
+					<td>
+{#						<a href="{{ path('admin_service_region_edit', {serverId: server.id}) }}">Editer le serveur</a>#}
+						<a href="">Supprimer la région</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<p><a href="{{ path('admin_service_region_create') }}">Ajouter une région</a></p>
+{% endblock %}
+

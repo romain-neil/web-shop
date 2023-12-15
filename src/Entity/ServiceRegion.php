@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ServiceRegionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ServiceRegionRepository;
 use Stringable;
 
 #[ORM\Entity(repositoryClass: ServiceRegionRepository::class)]
+#[ORM\Table(name: 'shop.service_region')]
 class ServiceRegion implements Stringable {
 
 	#[ORM\Id]

@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Controller\Panel;
+
+use App\Entity\AbstractService;
+use App\Entity\Customer;
+use App\Controller\AController;
+use App\Entity\User;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+#[Route('/panel', name: 'panel_')]
+#[IsGranted('ROLE_USER')]
+class ServicePanelController extends AController {
+
+	#[Route('/', name: 'home')]
+	public function home(): Response {
+		/** @var User $user */
+		$user = $this->getUser();
+
+		if (!($user instanceof Customer)) {
+			return $this->redirectToRoute('home_index');
+		}
+
+		/** @var AbstractService[] $services */
+		$services = $user->getServices();
+
+		return $this->render('pages/panel/home.html.twig', ['services' => $services]);
+	}
+
+}

@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use App\Entity\Infra\ServiceIp;
 use App\Repository\ServerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ServerRepository::class)]
-class Server {
+#[ORM\Table(name: 'shop.server')]
+class Server implements \Stringable {
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
@@ -25,8 +28,18 @@ class Server {
 	#[ORM\Column(length: 255)]
 	private string $name;
 
+	#[ORM\Column(nullable: true)]
+	private ?string $node_id = null;
+
+	#[ORM\Column(type: Types::GUID)]
+	private ?string $uuid = null;
+
+	#[ORM\OneToMany(mappedBy: 'server', targetEntity: ServiceIp::class)]
+	private Collection $ip_resources;
+
 	public function __construct() {
 		$this->services = new ArrayCollection();
+		$this->ip_resources = new ArrayCollection();
 	}
 
 	public function getId(): ?int {
@@ -80,6 +93,16 @@ class Server {
 		return $this;
 	}
 
+	public function getNodeId(): ?string {
+		return $this->node_id;
+	}
+
+	public function setNodeId(?string $node_id): string {
+		$this->node_id = $node_id;
+
+		return $this;
+	}
+
 	/**
 	 * Return the server' pretty name, composed by his name, his region name following infrastructure' name scheme
 	 *
@@ -93,6 +116,43 @@ class Server {
 
 	public function __toString(): string {
 		return $this->name;
+	}
+
+	public function getUuid(): ?string {
+		return $this->uuid;
+	}
+
+	public function setUuid(string $uuid): self {
+		$this->uuid = $uuid;
+
+		return $this;
+	}
+
+	/**
+	 * @return Collection<int, ServiceIp>
+	 */
+	public function getIpResources(): Collection {
+		return $this->ip_resources;
+	}
+
+	public function addIpResource(ServiceIp $ipResource): self {
+		if (!$this->ip_resources->contains($ipResource)) {
+			$this->ip_resources->add($ipResource);
+			$ipResource->setServer($this);
+		}
+
+		return $this;
+	}
+
+	public function removeIpResource(ServiceIp $ipResource): self {
+		if ($this->ip_resources->removeElement($ipResource)) {
+			// set the owning side to null (unless already changed)
+			if ($ipResource->getServer() === $this) {
+				$ipResource->setServer(null);
+			}
+		}
+
+		return $this;
 	}
 
 }

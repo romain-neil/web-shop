@@ -2,9 +2,9 @@
 
 namespace App\Repository\Services\Mumble;
 
-use App\Entity\Services\Mumble\MumbleService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Services\Mumble\MumbleService;
 
 /**
  * @extends ServiceEntityRepository<MumbleService>

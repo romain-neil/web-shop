@@ -2,11 +2,13 @@
 
 namespace App\Entity\Services\Mumble;
 
+use App\Entity\Services\AbstractServicePlan;
+use Doctrine\ORM\Mapping as ORM;
 use App\Entity\AbstractService;
 use App\Repository\Services\Mumble\MumbleServiceRepository;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MumbleServiceRepository::class)]
+#[ORM\Table(name: 'shop.mumble_service')]
 class MumbleService extends AbstractService {
 
 	#[ORM\Id]
@@ -33,6 +35,10 @@ class MumbleService extends AbstractService {
 		$this->channelCounts = $channelCounts;
 
 		return $this;
+	}
+
+	public function __toString(): string {
+		return 'mumble';
 	}
 
 }

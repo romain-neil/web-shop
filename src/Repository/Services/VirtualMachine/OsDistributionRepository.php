@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Repository\Services\VirtualMachine;
+
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Services\VirtualMachine\OsDistribution;
+
+/**
+ * @extends ServiceEntityRepository<OsDistribution>
+ *
+ * @method OsDistribution|null find($id, $lockMode = null, $lockVersion = null)
+ * @method OsDistribution|null findOneBy(array $criteria, array $orderBy = null)
+ * @method OsDistribution[]    findAll()
+ * @method OsDistribution[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class OsDistributionRepository extends ServiceEntityRepository {
+
+	public function __construct(ManagerRegistry $registry) {
+		parent::__construct($registry, OsDistribution::class);
+	}
+
+	public function save(OsDistribution $entity, bool $flush = false): void {
+		$this->getEntityManager()->persist($entity);
+
+		if ($flush) {
+			$this->getEntityManager()->flush();
+		}
+	}
+
+	public function remove(OsDistribution $entity, bool $flush = false): void {
+		$this->getEntityManager()->remove($entity);
+
+		if ($flush) {
+			$this->getEntityManager()->flush();
+		}
+	}
+
+}
