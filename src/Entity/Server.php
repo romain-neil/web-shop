@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Entity\Infra\ServiceIp;
-use App\Repository\ServerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Infra\ServiceIp;
+use App\Entity\Services\VirtualMachine\VmService;
+use App\Repository\ServerRepository;
 
 #[ORM\Entity(repositoryClass: ServerRepository::class)]
 #[ORM\Table(name: 'shop.server')]
@@ -34,11 +35,15 @@ class Server implements \Stringable {
 	#[ORM\Column(type: Types::GUID, nullable: true)]
 	private ?string $uuid = null;
 
+	#[ORM\OneToMany(mappedBy: 'server', targetEntity: VmService::class)]
+	private Collection $vms;
+
 	#[ORM\OneToMany(mappedBy: 'server', targetEntity: ServiceIp::class)]
 	private Collection $ip_resources;
 
 	public function __construct() {
 		$this->services = new ArrayCollection();
+		$this->vms = new ArrayCollection();
 		$this->ip_resources = new ArrayCollection();
 	}
 
@@ -152,6 +157,35 @@ class Server implements \Stringable {
 			}
 		}
 
+		return $this;
+	}
+
+	/**
+	 * @return Collection<int, VmService>
+	 */
+	public function getVms(): Collection {
+		return $this->vms;
+	}
+
+	public function addVm(VmService $vm): self {
+		if (!$this->vms->contains($vm)) {
+			$this->vms->add($vm);
+			$vm->setServer($this);
+		}
+
+		return $this;
+	}
+
+	public function removeVm(VmService $vm): self {
+		if ($this->vms->removeElement($vm)) {
+			// set the owning side to null (unless already changed)
+			if ($vm->getServer() === $this) {
+				$vm->setServer(null);
+			}
+		}
+
+		return $this;
+	}
 		return $this;
 	}
 
