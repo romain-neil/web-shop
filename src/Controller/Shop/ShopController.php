@@ -131,7 +131,7 @@ class ShopController extends AController {
     }
 
 	/**
-	 * @throws GuzzleException
+	 * @throws \Exception
 	 */
 	#[Route('/process', name: 'process_payment')]
 	public function processPayment(Request $request, ShoppingService $service): RedirectResponse {
