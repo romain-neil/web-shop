@@ -1,0 +1,16 @@
+<div class="ui fixed menu">
+    <div class="ui container">
+        <a href="/" class="header item">
+            Boutique
+        </a>
+
+        {% if app.user %}
+            <a href="{{ path('panel_home') }}" class="item">Mes services</a>
+            <a href="#" class="item">Mes dossiers de support</a>
+            <a href="{{ path('app_logout') }}" class="item">Se déconnecter</a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="item">Se connecter</a>
+            <a href="#" class="item">Créer un compte</a>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Sélectionner un plan' %}
+
+{% block stylesheets %}
+    <style>
+        span.fr {
+            float: right;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1 class="ui centered align header">Les offres du moment</h1>
+
+    <div class="ui cards">
+        {% for p in plans %}
+            <div class="ui card">
+                <div class="content">
+                    <div class="header center aligned">{{ p.commercialName }}</div>
+                    <div class="ui divider horizontal">{{ (p.price/100)|format_currency('EUR') }}</div>
+                    <div class="item">
+                        <i class="wifi icon"></i>
+                        <div class="stockage">
+                            Réseau
+                            <span class="fr">1 Gbps</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="globe icon"></i>
+                        <div class="content">
+                            Adressage
+                            <span class="fr">1 Adresse IPv6</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <a href="{{ path('shop_' ~ ctrl ~ '_place_order', {id: p.id}) }}" class="ui button fluid green">Commander</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

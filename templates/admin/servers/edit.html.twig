@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Serveur - Edition' %}
+
+{% block body %}
+	<h2>Editer un serveur</h2>
+
+	{{ include('common/edit_form.html.twig', {form: form}) }}
+{% endblock %}
+

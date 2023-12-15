@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Page de contact' %}
+
+{% block body %}
+    <h1 class="ui header">Formulaire de contact</h1>
+
+    <p>Que vous souhaitez nous faire d'une amélioration, d'un problème, ou tout simplement obtenir des renseignements, utilisez le formulaire de contact ci-dessous pour nous en faire part</p>
+
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+
+    <button type="submit" class="ui primary button">Envoyer le message</button> <button type="reset" class="ui button">Effacer le formulaire</button>
+    {{ form_end(form) }}
+
+    <p class="small">Sauf mention contraire, tous les champs sont obligatoires.</p>
+{% endblock %}
