@@ -41,6 +41,15 @@ class Server implements \Stringable {
 	#[ORM\OneToMany(mappedBy: 'server', targetEntity: ServiceIp::class)]
 	private Collection $ip_resources;
 
+	#[ORM\Column(length: 255, nullable: true)]
+	private ?string $api_key = null;
+
+	#[ORM\Column(length: 255)]
+	private ?string $api_url = null;
+
+	#[ORM\OneToOne(cascade: ['persist', 'remove'])]
+	private ?ServerConfig $config = null;
+
 	public function __construct() {
 		$this->services = new ArrayCollection();
 		$this->vms = new ArrayCollection();
@@ -186,6 +195,34 @@ class Server implements \Stringable {
 
 		return $this;
 	}
+
+	public function getApiKey(): ?string {
+		return $this->api_key;
+	}
+
+	public function setApiKey(?string $api_key): self {
+		$this->api_key = $api_key;
+
+		return $this;
+	}
+
+	public function getApiUrl(): ?string {
+		return $this->api_url;
+	}
+
+	public function setApiUrl(string $api_url): self {
+		$this->api_url = $api_url;
+
+		return $this;
+	}
+
+	public function getConfig(): ?ServerConfig {
+		return $this->config;
+	}
+
+	public function setConfig(?ServerConfig $config): self {
+		$this->config = $config;
+
 		return $this;
 	}
 
