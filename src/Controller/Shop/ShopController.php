@@ -2,13 +2,18 @@
 namespace App\Controller\Shop;
 
 use App\Controller\AController;
+use App\Entity\AbstractService;
 use App\Entity\Customer;
 use App\Entity\Order;
+use App\Entity\Services\AbstractServicePlan;
+use App\Entity\Services\VirtualMachine\VmPlan;
+use App\Entity\Services\VirtualMachine\VmService;
+use App\Entity\Services\Wireguard\WgPlan;
+use App\Entity\Services\Wireguard\WireguardService;
 use App\Service\ShoppingService;
 use DateTime;
 use DateTimeZone;
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +23,56 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/shop', name: 'shop_')]
 #[IsGranted('ROLE_USER')]
 class ShopController extends AController {
+
+	/**
+	 * Function used to retrieve service plan related to service type
+	 * @param string $serviceType
+	 * @param int $id
+	 * @return \App\Entity\Services\AbstractServicePlan|null
+	 */
+	private function getServicePlan(string $serviceType, int $id): ?AbstractServicePlan {
+		$planClass = match($serviceType) {
+			'vm' => VmPlan::class,
+			'wg' => WgPlan::class
+		};
+
+		$planDetails = $this->getRessource($planClass, $id);
+
+		if ($planDetails == null) {
+			throw new \InvalidArgumentException('No plan were found');
+			//return $this->redirectToRoute('shop_vm_select_plan');
+		}
+
+		return $planDetails;
+	}
+
+	private function getService(string $serviceType): AbstractService {
+		return match($serviceType) {
+			'vm' => new VmService(),
+			'wg' => new WireguardService()
+		};
+	}
+
+	/**
+	 * Function to apply the plan to the service
+	 * @param \App\Entity\Services\AbstractServicePlan $plan the service plan
+	 * @param string $serviceType the service type
+	 * @param \App\Entity\Order $order the current order
+	 * @return void
+	 */
+	private function placeServiceOrder(AbstractServicePlan $plan, string $serviceType, Order $order): void {
+		/** @var Customer $customer */
+		$customer = $this->getUser();
+
+		$service = $this->getService($serviceType);
+		$service->setPlan($plan);
+		$service->setCustomer($customer);
+		$service->setInternalServiceName($plan->getCommercialName());
+		$service->setRelatedOrder($order);
+
+		$this->em->persist($service);
+		$this->em->flush();
+	}
 
 	#[Route('/', name: 'main')]
 	public function mainPage(): Response {
@@ -43,6 +98,25 @@ class ShopController extends AController {
 		$request->getSession()->set('orderId', $order->getId());
 
 		return $order;
+	}
+
+	/**
+	 * @throws \Exception
+	 */
+	#[Route('/{service}/place-order/{id}')]
+	public function placeOrder(Request $request, string $service, int $id): Response {
+		try {
+			$plan = $this->getServicePlan($service, $id);
+		} catch (\InvalidArgumentException) {
+			$this->addFlash('error', "Ce service n'existe pas");
+
+			return $this->redirectToRoute('shop_' . $service . '_select_plan');
+		}
+
+		$order = $this->createOrder($request);
+		$this->placeServiceOrder($plan, $service, $order);
+
+		return $this->redirectToRoute('shop_cart');
 	}
 
     #[Route('/cart', name: 'cart')]
