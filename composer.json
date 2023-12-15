@@ -12,6 +12,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.15",
         "easycorp/easyadmin-bundle": "^4.10",
+        "rlanvin/php-ip": "*",
         "symfony/console": "*",
         "symfony/dotenv": "*",
         "symfony/flex": "^2",
