@@ -15,6 +15,10 @@ class WireguardService extends AbstractService implements \Stringable {
 	#[ORM\Column]
 	protected ?int $id = null;
 
+	#[ORM\ManyToOne]
+	#[ORM\JoinColumn(nullable: false)]
+	private ?WgPlan $plan = null;
+
 	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $ipv4 = null;
 
@@ -50,12 +54,13 @@ class WireguardService extends AbstractService implements \Stringable {
 	}
 	
 	public function getPlan(): ?AbstractServicePlan {
-		// TODO: Implement getPlan() method.
-		return null;
+		return $this->plan;
 	}
 	
-	public function setPlan(?AbstractServicePlan $plan) {
-		// TODO: Implement setPlan() method.
+	public function setPlan(?AbstractServicePlan $plan): self {
+		$this->plan = $plan;
+
+		return $this;
 	}
 	
 	public function __toString(): string {
