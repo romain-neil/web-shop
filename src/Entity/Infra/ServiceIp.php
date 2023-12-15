@@ -10,7 +10,7 @@ use App\Entity\Server;
 use App\Repository\Infra\ServiceIpRepository;
 
 #[ORM\Entity(repositoryClass: ServiceIpRepository::class)]
-#[ORM\Table(name: 'shop.service_ip')]
+#[ORM\Table(name: 'shop.infra_service_ip')]
 class ServiceIp implements \Stringable {
 
 	#[ORM\Id]
