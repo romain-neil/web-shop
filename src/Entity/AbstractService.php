@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 	'mumble' => 'App\Entity\Services\Mumble\MumbleService',
 	'vm' => 'App\Entity\Services\VirtualMachine\VmService',
 	'wireguard' => 'App\Entity\Services\Wireguard\WireguardService',
+	'vm' => 'App\Entity\Services\VirtualMachine\VmService'
 ])]
 #[ORM\Table(name: 'shop.abstract_service')]
 abstract class AbstractService implements Stringable, SellableService {
