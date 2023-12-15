@@ -31,7 +31,7 @@ class Server implements \Stringable {
 	#[ORM\Column(nullable: true)]
 	private ?string $node_id = null;
 
-	#[ORM\Column(type: Types::GUID)]
+	#[ORM\Column(type: Types::GUID, nullable: true)]
 	private ?string $uuid = null;
 
 	#[ORM\OneToMany(mappedBy: 'server', targetEntity: ServiceIp::class)]
