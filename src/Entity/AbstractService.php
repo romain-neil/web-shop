@@ -16,7 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
 	'wireguard' => 'App\Entity\Services\Wireguard\WireguardService',
 	'vm' => 'App\Entity\Services\VirtualMachine\VmService'
 ])]
-abstract class AbstractService implements \Stringable {
+#[ORM\Table(name: 'shop.abstract_service')]
+abstract class AbstractService implements Stringable, SellableService {
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
