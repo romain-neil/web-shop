@@ -44,10 +44,6 @@ class VmService extends AbstractService {
 		return 'Machine virtuelle ' . $this->plan->getCommercialName();
 	}
 
-	public function __toString(): string {
-		return 'vm';
-	}
-
 	public function getPlan(): ?VmPlan {
 		return $this->plan;
 	}
@@ -103,6 +99,10 @@ class VmService extends AbstractService {
 		$this->vm_id = $vm_id;
 
 		return $this;
+	}
+
+	public function __toString(): string {
+		return 'vm';
 	}
 
 }
