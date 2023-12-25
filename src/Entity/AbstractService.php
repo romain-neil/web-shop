@@ -43,6 +43,9 @@ abstract class AbstractService implements Stringable, SellableService {
 	private Collection $ips;
 
 	#[ORM\ManyToOne(inversedBy: 'services')]
+	private ?Order $related_order = null;
+
+	#[ORM\ManyToOne(inversedBy: 'services')]
 	#[ORM\JoinColumn(nullable: false)]
 	private ?Customer $customer = null;
 
@@ -103,6 +106,16 @@ abstract class AbstractService implements Stringable, SellableService {
 				$ip->setRelatedService(null);
 			}
 		}
+
+		return $this;
+	}
+
+	public function getRelatedOrder(): ?Order {
+		return $this->related_order;
+	}
+
+	public function setRelatedOrder(?Order $related_order): self {
+		$this->related_order = $related_order;
 
 		return $this;
 	}
