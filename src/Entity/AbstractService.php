@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
 #[ORM\DiscriminatorMap([
-	'abstractService' => 'AbstractService',
 	'housing' => 'App\Entity\Services\Housing\HousingService',
 	'mumble' => 'App\Entity\Services\Mumble\MumbleService',
 	'vm' => 'App\Entity\Services\VirtualMachine\VmService',
@@ -104,6 +103,10 @@ abstract class AbstractService implements Stringable, SellableService {
 		$this->related_order = $related_order;
 
 		return $this;
+	}
+
+	public function getPrettyUrl(): string {
+		return sprintf('%s.infra.carow.fr', $this->__toString());
 	}
 
 }
