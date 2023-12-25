@@ -4,7 +4,7 @@ namespace App\Controller\Shop;
 
 use App\Entity\Services\VirtualMachine\VmPlan;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/shop/vm', name: 'shop_vm_')]
