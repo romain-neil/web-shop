@@ -2,7 +2,7 @@
 namespace App\Entity;
 
 use App\Repository\AbstractServiceRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 
 #[ORM\Entity(repositoryClass: AbstractServiceRepository::class)]
 #[ORM\Table(name: 'shop.abstract_service')]
@@ -75,6 +75,10 @@ abstract class AbstractService implements Stringable, SellableService {
 		$this->customer = $customer;
 
 		return $this;
+	}
+
+	public function getPrettyUrl(): string {
+		return sprintf('%s.infra.carow.fr', $this->__toString());
 	}
 
 }
