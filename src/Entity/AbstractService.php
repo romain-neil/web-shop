@@ -22,7 +22,7 @@ abstract class AbstractService implements Stringable, SellableService {
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
 	#[ORM\Column]
-	private ?int $id = null;
+	protected ?int $id = null;
 
 	public function getId(): ?int {
 		return $this->id;
