@@ -4,6 +4,8 @@ namespace App\Entity;
 use App\Entity\Services\AbstractServicePlan;
 use App\Entity\Services\SellableService;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\AbstractServiceRepository;
 
 #[ORM\Entity(repositoryClass: AbstractServiceRepository::class)]
@@ -38,6 +40,9 @@ abstract class AbstractService implements Stringable, SellableService {
 	#[ORM\JoinColumn(nullable: false)]
 	private ?AbstractServicePlan $plan = null;
 
+	#[ORM\OneToMany(mappedBy: 'related_service', targetEntity: ServiceIp::class)]
+	private Collection $ips;
+
 	#[ORM\ManyToOne(inversedBy: 'services')]
 	#[ORM\JoinColumn(nullable: false)]
 	private ?Customer $customer = null;
@@ -45,6 +50,11 @@ abstract class AbstractService implements Stringable, SellableService {
 	#[ORM\ManyToOne(inversedBy: 'services')]
 	#[ORM\JoinColumn(nullable: false)]
 	private ?Order $related_order = null;
+
+
+	public function __construct() {
+		$this->ips = new ArrayCollection();
+	}
 
 	abstract public function getServiceName(): string;
 
@@ -82,6 +92,33 @@ abstract class AbstractService implements Stringable, SellableService {
 
 	public function setPlan(?AbstractServicePlan $plan): self {
 		$this->plan = $plan;
+
+		return $this;
+	}
+
+	/**
+	 * @return Collection<int, ServiceIp>
+	 */
+	public function getIps(): Collection {
+		return $this->ips;
+	}
+
+	public function addIp(ServiceIp $ip): self {
+		if (!$this->ips->contains($ip)) {
+			$this->ips->add($ip);
+			$ip->setRelatedService($this);
+		}
+
+		return $this;
+	}
+
+	public function removeIp(ServiceIp $ip): self {
+		if ($this->ips->removeElement($ip)) {
+			// set the owning side to null (unless already changed)
+			if ($ip->getRelatedService() === $this) {
+				$ip->setRelatedService(null);
+			}
+		}
 
 		return $this;
 	}
