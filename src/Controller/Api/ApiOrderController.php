@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 #[IsGranted('ROLE_USER')]
 class ApiOrderController extends ApiController {
 
-	const ORDER_ATTRS = ['date_created', 'paid'];
+	const array ORDER_ATTRS = ['date_created', 'paid'];
 
 	/**
 	 * @throws ExceptionInterface
