@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Service;
 
 use App\Entity\Discount;
@@ -42,7 +41,6 @@ class DiscountService {
 		if ($usage === null) {
 			return true;
 		}
-
 
 		// Maximum code usage
 		if ($discount->getMaximalTotalUsage() >= count($usage)) {
