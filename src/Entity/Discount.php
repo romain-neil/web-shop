@@ -31,6 +31,12 @@ class Discount {
 	#[ORM\OneToMany(mappedBy: 'code', targetEntity: DiscountCodeUsage::class)]
 	private Collection $codeUsages;
 
+	/**
+	 * @var bool|null Allow multiple use in the same Order ?
+	 */
+	#[ORM\Column]
+	private ?bool $allow_multiple_use = null;
+
 	public function __construct() {
 		$this->codeUsages = new ArrayCollection();
 	}
@@ -102,6 +108,16 @@ class Discount {
 				$codeUsage->setCode(null);
 			}
 		}
+
+		return $this;
+	}
+
+	public function isAllowMultipleUse(): ?bool {
+		return $this->allow_multiple_use;
+	}
+
+	public function setAllowMultipleUse(bool $allow_multiple_use): static {
+		$this->allow_multiple_use = $allow_multiple_use;
 
 		return $this;
 	}
