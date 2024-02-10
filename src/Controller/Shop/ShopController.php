@@ -55,12 +55,14 @@ class ShopController extends AController {
 
 	/**
 	 * Function to apply the plan to the service
-	 * @param \App\Entity\Services\AbstractServicePlan $plan the service plan
+	 *
+	 * @param Request $request
+	 * @param AbstractServicePlan $plan the service plan
 	 * @param string $serviceType the service type
-	 * @param \App\Entity\Order $order the current order
 	 * @return void
+	 * @throws Exception
 	 */
-	private function placeServiceOrder(AbstractServicePlan $plan, string $serviceType, Order $order): void {
+	protected function placeServiceOrder(Request $request, AbstractServicePlan $plan, string $serviceType): void {
 		/** @var Customer $customer */
 		$customer = $this->getUser();
 
@@ -68,7 +70,13 @@ class ShopController extends AController {
 		$service->setPlan($plan);
 		$service->setCustomer($customer);
 		$service->setInternalServiceName($plan->getCommercialName());
-		$service->setRelatedOrder($order);
+
+		$order = $this->getOrder($request);
+		if ($order == null) {
+			$order = $this->createOrder($request);
+		}
+
+		$order->addService($service);
 
 		$this->em->persist($service);
 		$this->em->flush();
