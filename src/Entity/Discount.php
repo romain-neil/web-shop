@@ -37,6 +37,9 @@ class Discount {
 	#[ORM\Column]
 	private ?bool $allow_multiple_use = null;
 
+	#[ORM\Column]
+	private ?bool $is_percent = null;
+
 	public function __construct() {
 		$this->codeUsages = new ArrayCollection();
 	}
@@ -118,6 +121,16 @@ class Discount {
 
 	public function setAllowMultipleUse(bool $allow_multiple_use): static {
 		$this->allow_multiple_use = $allow_multiple_use;
+
+		return $this;
+	}
+
+	public function isIsPercent(): ?bool {
+		return $this->is_percent;
+	}
+
+	public function setIsPercent(bool $is_percent): static {
+		$this->is_percent = $is_percent;
 
 		return $this;
 	}
