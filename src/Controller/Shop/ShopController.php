@@ -121,8 +121,7 @@ class ShopController extends AController {
 			return $this->redirectToRoute('shop_' . $service . '_select_plan');
 		}
 
-		$order = $this->createOrder($request);
-		$this->placeServiceOrder($plan, $service, $order);
+		$this->placeServiceOrder($request, $plan, $service);
 
 		return $this->redirectToRoute('shop_cart');
 	}
