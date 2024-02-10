@@ -43,8 +43,6 @@ class DiscountService {
 			return true;
 		}
 
-		//TODO: may check how many code an user can enter
-
 
 		// Maximum code usage
 		if ($discount->getMaximalTotalUsage() >= count($usage)) {
