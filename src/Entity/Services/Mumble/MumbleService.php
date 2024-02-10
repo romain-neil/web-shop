@@ -17,8 +17,6 @@ class MumbleService extends AbstractService {
 	#[ORM\Column]
 	private ?int $channelCounts = null;
 
-	private ?MumblePlan $plan = null;
-
 	public function getServiceName(): string {
 		return "Serveur mumble";
 	}
@@ -39,16 +37,6 @@ class MumbleService extends AbstractService {
 
 	public function __toString(): string {
 		return 'mumble';
-	}
-
-	public function getPlan(): ?MumblePlan {
-		return $this->plan;
-	}
-
-	public function setPlan(?AbstractServicePlan $plan): self {
-		$this->plan = $plan;
-
-		return $this;
 	}
 
 }
