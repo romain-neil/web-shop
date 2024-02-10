@@ -39,8 +39,12 @@ class Order {
 	#[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
 	private ?\DateTimeInterface $date_end_valid = null;
 
+	#[ORM\OneToMany(mappedBy: 'related_order', targetEntity: DiscountCodeUsage::class)]
+	private Collection $discountCodeUsages;
+
 	public function __construct() {
 		$this->services = new ArrayCollection();
+		$this->discountCodeUsages = new ArrayCollection();
 	}
 
 	public function getId(): ?int {
@@ -142,6 +146,33 @@ class Order {
 
 	public function setDateEndValid(?\DateTimeInterface $date_end_valid): self {
 		$this->date_end_valid = $date_end_valid;
+
+		return $this;
+	}
+
+	/**
+	 * @return Collection<int, DiscountCodeUsage>
+	 */
+	public function getDiscountCodeUsages(): Collection {
+		return $this->discountCodeUsages;
+	}
+
+	public function addDiscountCodeUsage(DiscountCodeUsage $discountCodeUsage): static {
+		if (!$this->discountCodeUsages->contains($discountCodeUsage)) {
+			$this->discountCodeUsages->add($discountCodeUsage);
+			$discountCodeUsage->setRelatedOrder($this);
+		}
+
+		return $this;
+	}
+
+	public function removeDiscountCodeUsage(DiscountCodeUsage $discountCodeUsage): static {
+		if ($this->discountCodeUsages->removeElement($discountCodeUsage)) {
+			// set the owning side to null (unless already changed)
+			if ($discountCodeUsage->getRelatedOrder() === $this) {
+				$discountCodeUsage->setRelatedOrder(null);
+			}
+		}
 
 		return $this;
 	}
