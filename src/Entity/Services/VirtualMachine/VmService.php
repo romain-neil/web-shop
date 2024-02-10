@@ -19,10 +19,6 @@ class VmService extends AbstractService {
 	protected ?int $id = null;
 
 	#[ORM\ManyToOne]
-	#[ORM\JoinColumn(nullable: false)]
-	private ?VmPlan $plan = null;
-
-	#[ORM\ManyToOne]
 	#[ORM\JoinColumn(nullable: true)]
 	private ?OsDistribution $distrib = null;
 
@@ -41,17 +37,7 @@ class VmService extends AbstractService {
 	}
 
 	public function getServiceName(): string {
-		return 'Machine virtuelle ' . $this->plan->getCommercialName();
-	}
-
-	public function getPlan(): ?VmPlan {
-		return $this->plan;
-	}
-
-	public function setPlan(?AbstractServicePlan $plan): self {
-		$this->plan = $plan;
-
-		return $this;
+		return 'Machine virtuelle ' . $this->getPlan()->getCommercialName();
 	}
 
 	public function getDistrib(): ?OsDistribution {
