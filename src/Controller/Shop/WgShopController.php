@@ -2,13 +2,12 @@
 namespace App\Controller\Shop;
 
 use App\Entity\Services\Wireguard\WgPlan;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/shop/wg', name: 'shop_wg_')]
-//#[IsGranted('ROLE_USER')]
+#[IsGranted('ROLE_USER')]
 class WgShopController extends AbstractShopController {
 
 	#[Route('/', name: 'landing')]
