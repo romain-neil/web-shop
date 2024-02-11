@@ -8,6 +8,7 @@ use App\Repository\Services\AbstractServicePlanRepository;
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
 #[ORM\DiscriminatorMap([
+	'mumble' => 'App\Entity\Services\Mumble\MumblePlan',
     'vm' => 'App\Entity\Services\VirtualMachine\VmPlan',
 	'wg' => 'App\Entity\Services\Wireguard\WgPlan'
 ])]
