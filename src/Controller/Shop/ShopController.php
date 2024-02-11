@@ -115,7 +115,7 @@ class ShopController extends AController {
 	/**
 	 * @throws \Exception
 	 */
-	#[Route('/{service}/place-order/{id}')]
+	#[Route('/{service}/place-order/{id}', name: 'place_order')]
 	public function placeOrder(Request $request, string $service, int $id): Response {
 		try {
 			$plan = $this->getServicePlan($service, $id);
