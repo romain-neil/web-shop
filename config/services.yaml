@@ -22,3 +22,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Service\SelfAuthService:
+        arguments:
+            $authApiUrl: '%env(AUTH_API_URL)%'
+            $username: '%env(AUTH_API_USER)%'
+            $password: '%env(AUTH_API_PASS)%'
