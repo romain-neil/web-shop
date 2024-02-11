@@ -32,10 +32,6 @@ class VmService extends AbstractService {
 		$this->backups = new ArrayCollection();
 	}
 
-	public function getId(): ?int {
-		return $this->id;
-	}
-
 	public function getServiceName(): string {
 		return 'Machine virtuelle ' . $this->getPlan()->getCommercialName();
 	}

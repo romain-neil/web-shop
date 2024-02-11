@@ -21,10 +21,6 @@ class MumbleService extends AbstractService {
 		return "Serveur mumble";
 	}
 
-	public function getId(): ?int {
-		return $this->id;
-	}
-
 	public function getChannelCounts(): ?int {
 		return $this->channelCounts;
 	}

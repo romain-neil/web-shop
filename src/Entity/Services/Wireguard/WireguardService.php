@@ -25,10 +25,6 @@ class WireguardService extends AbstractService implements \Stringable {
 		return "Tunnel wireguard";
 	}
 
-	public function getId(): ?int {
-		return $this->id;
-	}
-
 	public function getIpv4(): ?string {
 		return $this->ipv4;
 	}
