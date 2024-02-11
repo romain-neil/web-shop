@@ -55,11 +55,4 @@ class DiscountService {
 		return true;
 	}
 
-	/**
-	 * Function to add the discount only to applicable service, in current order
-	 * @TODO write it
-	 * @return void
-	 */
-	private function applyToService(): void {}
-
 }
