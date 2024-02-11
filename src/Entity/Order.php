@@ -122,9 +122,20 @@ class Order {
 		$total = 0;
 
 		$services = $this->getServices();
-
 		foreach ($services as $service) {
 			$total += $service->getPlan()->getPrice();
+		}
+
+		$discounts = $this->getDiscountCodeUsages();
+		foreach ($discounts as $discount) {
+			$code = $discount->getCode();
+			$amount = $code->getAmount() / 100;
+
+			if ($code->isIsPercent()) {
+				$total -= ($total * $amount);
+			} else {
+				$total -= $amount;
+			}
 		}
 
 		return $total;
