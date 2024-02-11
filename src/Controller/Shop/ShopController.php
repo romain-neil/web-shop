@@ -4,16 +4,20 @@ namespace App\Controller\Shop;
 use App\Controller\AController;
 use App\Entity\AbstractService;
 use App\Entity\Customer;
+use App\Entity\Discount;
+use App\Entity\DiscountCodeUsage;
 use App\Entity\Order;
 use App\Entity\Services\AbstractServicePlan;
 use App\Entity\Services\VirtualMachine\VmPlan;
 use App\Entity\Services\VirtualMachine\VmService;
 use App\Entity\Services\Wireguard\WgPlan;
 use App\Entity\Services\Wireguard\WireguardService;
+use App\Service\DiscountService;
 use App\Service\ShoppingService;
 use DateTime;
 use DateTimeZone;
 use Exception;
+use Symfony\Component\Clock\ClockInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -134,8 +138,43 @@ class ShopController extends AController {
             return $this->redirectToRoute('shop_main');
         }
 
-        return $this->render('pages/shop/order_recap.html.twig', ['order' => $order, 'total' => $order->getTotal()]);
+        return $this->render('pages/shop/order_recap.html.twig', ['order' => $order, 'total' => $order->getTotal(), 'discounts' => $order->getDiscountCodeUsages()]);
     }
+
+	#[Route('/cart/discount', name: 'apply_discount_code', methods: ['POST'])]
+	public function applyDiscountCode(Request $request, DiscountService $discountService, ClockInterface $clock): RedirectResponse {
+		$order = $this->getOrder($request);
+
+		if ($order === null) {
+			return $this->redirectToRoute('shop_main');
+		}
+
+		$code = $request->request->getString('discount-code');
+		$discount = $this->em->getRepository(Discount::class)->findOneBy(['code' => $code]);
+
+		if ($discount === null) {
+			$this->addFlash('info', "Ce code de réduction n'existe pas");
+
+			return $this->redirectToRoute('shop_cart');
+		}
+
+		if ($discountService->canApply($discount, $order)) {
+			$discountUsage = new DiscountCodeUsage();
+			$discountUsage->setCode($discount);
+			$discountUsage->setDateUsage($clock->now());
+
+			$order->addDiscountCodeUsage($discountUsage);
+
+			$this->em->persist($discountUsage);
+			$this->em->flush();
+
+			$this->addFlash('info', 'Réduction appliquée');
+		} else {
+			$this->addFlash('info', "Le code ne s'applique pas à la commande");
+		}
+
+		return $this->redirectToRoute('shop_cart');
+	}
 
 	/**
 	 * @throws \Exception
