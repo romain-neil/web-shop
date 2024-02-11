@@ -67,19 +67,20 @@ class ShopController extends AController {
 	 */
 	protected function placeServiceOrder(Request $request, AbstractServicePlan $plan, string $serviceType): void {
 		/** @var Customer $customer */
-		$customer = $this->getUser();
+		$user = $this->getUser();
 
-		$service = $this->getService($serviceType);
-		$service->setPlan($plan);
-		$service->setCustomer($customer);
-		$service->setInternalServiceName($plan->getCommercialName());
+		$customer = $this->em->getRepository(Customer::class)->findOneBy(['id' => $user->getId()]);
 
 		$order = $this->getOrder($request);
 		if ($order == null) {
 			$order = $this->createOrder($request);
 		}
 
-		$order->addService($service);
+		$service = $this->getService($serviceType);
+		$service->setPlan($plan);
+		$service->setCustomer($customer);
+		$service->setInternalServiceName($plan->getCommercialName());
+		$service->setRelatedOrder($order);
 
 		$this->em->persist($service);
 		$this->em->flush();
