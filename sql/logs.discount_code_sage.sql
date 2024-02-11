@@ -11,7 +11,7 @@ AS
         CONCAT("user".prenom, ' ', UPPER("user".nom)) AS customer_name
     FROM
         shop.discount_code_usage AS usage
-    LEFT JOIN shop.order AS o ON o.id = usage.order_id
+    LEFT JOIN shop.order AS o ON o.id = usage.related_order_id
     LEFT JOIN intranet.customer AS cust ON cust.id = o.customer_id
     LEFT JOIN intranet."user" AS "user" ON "user".id = cust.id
 ;
