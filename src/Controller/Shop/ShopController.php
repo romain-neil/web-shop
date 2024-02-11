@@ -44,7 +44,6 @@ class ShopController extends AController {
 
 		if ($planDetails == null) {
 			throw new \InvalidArgumentException('No plan were found');
-			//return $this->redirectToRoute('shop_vm_select_plan');
 		}
 
 		return $planDetails;
