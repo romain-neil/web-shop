@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="extra content">
-                    <a href="{{ path('shop_vm_place_order', {id: p.id}) }}" class="ui button fluid green">Commander</a>
+                    <a href="{{ path('shop_place_order', {service: 'vm', id: p.id}) }}" class="ui button fluid green">Commander</a>
                 </div>
             </div>
         {% endfor %}

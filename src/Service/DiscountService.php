@@ -43,7 +43,10 @@ class DiscountService {
 		}
 
 		// Maximum code usage
-		if ($discount->getMaximalTotalUsage() >= count($usage)) {
+		if (
+			$discount->getMaximalTotalUsage() > self::UNLIMITED_USAGE &&
+			$discount->getMaximalTotalUsage() >= count($usage)
+		) {
 			return false;
 		}
 
