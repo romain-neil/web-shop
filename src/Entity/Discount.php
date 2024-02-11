@@ -40,6 +40,9 @@ class Discount {
 	#[ORM\Column]
 	private ?bool $is_percent = null;
 
+	#[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+	private ?\DateTimeInterface $date_valid_until = null;
+
 	public function __construct() {
 		$this->codeUsages = new ArrayCollection();
 	}
@@ -131,6 +134,16 @@ class Discount {
 
 	public function setIsPercent(bool $is_percent): static {
 		$this->is_percent = $is_percent;
+
+		return $this;
+	}
+
+	public function getDateValidUntil(): ?\DateTimeInterface {
+		return $this->date_valid_until;
+	}
+
+	public function setDateValidUntil(?\DateTimeInterface $date_valid_until): static {
+		$this->date_valid_until = $date_valid_until;
 
 		return $this;
 	}
