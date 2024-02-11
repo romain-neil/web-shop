@@ -7,6 +7,8 @@ use App\Repository\DiscountCodeUsageRepository;
 
 class DiscountService {
 
+	public const int UNLIMITED_USAGE = -1;
+
 	private DiscountCodeUsageRepository $repo;
 
 	public function __construct(DiscountCodeUsageRepository $repo) {
