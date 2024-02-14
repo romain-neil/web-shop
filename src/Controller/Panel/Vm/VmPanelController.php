@@ -63,13 +63,13 @@ class VmPanelController extends ServicePanelController implements PanelInterface
 
 		$vm = $this->getVm($vmId);
 		if ($vm == null) {
-			$this->addFlash('danger', "Cette ressource n'existe pas");
+			$this->addFlash('warning', "Cette ressource n'existe pas");
 
 			return $this->redirectToRoute('panel_home');
 		}
 
 		if ($vm->getCustomer() !== $customer) {
-			$this->addFlash('danger', "Vous n'êtes pas autorisés à afficher cette ressource");
+			$this->addFlash('negative', "Vous n'êtes pas autorisés à afficher cette ressource");
 
 			return $this->redirectToRoute('panel_home');
 		}
@@ -77,7 +77,7 @@ class VmPanelController extends ServicePanelController implements PanelInterface
 		/** @var ?OsDistribution $os */
 		$os = $this->getRessource(OsDistribution::class, $operatingSystemId);
 		if ($os == null) {
-			$this->addFlash('danger', "Système d'exploitation inexistant");
+			$this->addFlash('negative', "Système d'exploitation inexistant");
 
 			return $this->redirectToRoute('panel_home');
 		}
