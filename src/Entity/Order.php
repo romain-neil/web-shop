@@ -26,7 +26,7 @@ class Order {
 	#[ORM\Column]
 	private ?bool $in_cart = null;
 
-	#[ORM\OneToMany(mappedBy: 'related_order', targetEntity: AbstractService::class)]
+	#[ORM\OneToMany(mappedBy: 'related_order', targetEntity: AbstractService::class, fetch: 'EAGER')]
 	private Collection $services;
 
 	#[ORM\ManyToOne]
