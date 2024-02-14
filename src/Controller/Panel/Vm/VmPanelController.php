@@ -97,7 +97,7 @@ class VmPanelController extends ServicePanelController implements PanelInterface
 		$vm = $this->getVm($id);
 
 		if ($vm == null) {
-			$this->addFlash('danger', "Cette ressource n'existe pas");
+			$this->addFlash('negative', "Cette ressource n'existe pas");
 
 			return $this->redirectToRoute('panel_home');
 		}
