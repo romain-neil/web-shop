@@ -110,7 +110,7 @@ class VmPanelController extends ServicePanelController implements PanelInterface
 			return $this->redirectToRoute('panel_home');
 		}
 
-		return $this->render('pages/panel/vm/show.html.twig');
+		return $this->render('pages/panel/vm/show.html.twig', ['vm' => $vm]);
 	}
 
 	#[Route('/{id}/start', name: 'start')]

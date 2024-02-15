@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Gestion de la VM' %}
+
+{% block body %}
+    <h1 class="ui header">Machine virtuelle</h1>
+
+    <p>
+        <a href="{{ path('panel_vm_start', {id: vm.id}) }}" class="ui labeled icon button">
+            <i class="play green icon"></i>
+            Démarrer
+        </a>
+        <a href="{{ path('panel_vm_onboarding',{id: vm.id}) }}" class="ui red labeled icon button">
+            <i class="redo icon"></i>
+            Réinstaller
+        </a>
+        <a href="{{ path('panel_vm_stop', {id: vm.id}) }}" class="ui labeled icon button">
+            <i class="stop icon"></i>
+            Stopper
+        </a>
+    </p>
+
+    <div class="ui segment">
+        <p>Adresses ip : {# {% if vm.ip|length %}{{ ip }}{% else %}Aucunne{% endif %}</p> #}
+    </div>
+
+    <h4 class="ui horizontal divider header">
+        <i class="bar chart icon"></i>
+        Caractéristiques techniques
+    </h4>
+    <table class="ui definition table">
+        <tbody>
+            <tr>
+                <td class="two wide column">Processeur</td>
+                <td>{{ vm.plan.proc }}</td>
+            </tr>
+            <tr>
+                <td>Mémoire</td>
+                <td>{{ vm.plan.memory }} Mo</td>
+            </tr>
+            <tr>
+                <td>Réseau</td>
+                <td>{{ vm.plan.network }} Mbps*</td>
+            </tr>
+            <tr>
+                <td>Stockage</td>
+                <td>{{ vm.plan.storage }} Go</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><small>*: Il s'agit de la vitesse maximale autorisée sur la machine virtuelle, mais n'est pas garantie</small></p>
+
+    <h4 class="ui horizontal divider header">
+        <i class="search icon"></i>
+        Statistiques
+    </h4>
+
+    {# //TODO: option payante pour les sauvegardes #}
+
+    <h4 class="ui horizontal divider header">
+        <i class="database icon"></i>
+        Sauvegardes
+    </h4>
+
+    <p>Depuis cette interface, vous pouvez restaurer des sauvegardes depuis les 7 derniers jours</p>
+
+    <div class="ui list">
+        <div class="item">
+            <i class="folder open icon"></i>
+            <div class="content">
+                <div class="header">/</div>
+                <div class="list">
+                    <!-- For each backup file -->
+                    {% for backup in vm.backups %}
+                        <div class="item">
+                            <i class="file icon"></i>
+                            <div class="content">
+                                <div class="header">Sauvegarde du {{ backup.date|date('d/m/Y H:i') }} ({{ backup.size/1024 }} Mo) <small><a href="{{ path('panel_vm_backup_restore', {backup: backup.id}) }}">Restaurer</a></small></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
