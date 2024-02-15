@@ -104,8 +104,8 @@ class VmPanelController extends ServicePanelController implements PanelInterface
 
 		/** @var Customer $customer */
 		$customer = $this->getUser();
-		if ($vm->getCustomer() !== $customer) {
-			$this->addFlash('danger', "Vous n'êtes pas autorisés à afficher cette ressource");
+		if ($vm->getCustomer()->getUserId() !== $customer->getUserId()) {
+			$this->addFlash('negative', "Vous n'êtes pas autorisés à afficher cette ressource");
 
 			return $this->redirectToRoute('panel_home');
 		}
