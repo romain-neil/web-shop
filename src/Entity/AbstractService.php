@@ -1,13 +1,9 @@
 <?php
 namespace App\Entity;
 
-use App\Entity\Services\SellableService;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Infra\ServiceIp;
+use App\Entity\Services\AbstractServicePlan;
 use App\Repository\AbstractServiceRepository;
-use Stringable;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AbstractServiceRepository::class)]
 #[ORM\Table(name: 'shop.abstract_service')]
