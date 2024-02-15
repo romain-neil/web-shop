@@ -5,7 +5,6 @@ use App\Entity\Services\AbstractServicePlan;
 use App\Entity\Services\SellableService;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AbstractServiceRepository;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AbstractServiceRepository::class)]
 #[ORM\Table(name: 'shop.abstract_service')]
