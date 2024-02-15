@@ -17,7 +17,6 @@ use Stringable;
 	'abstractService' => 'AbstractService',
 	'housing' => 'App\Entity\Services\Housing\HousingService',
 	'mumble' => 'App\Entity\Services\Mumble\MumbleService',
-	'vm' => 'App\Entity\Services\VirtualMachine\VmService',
 	'wireguard' => 'App\Entity\Services\Wireguard\WireguardService',
 	'vm' => 'App\Entity\Services\VirtualMachine\VmService'
 ])]
