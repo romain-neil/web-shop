@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Récapitulatif' %}
+
+{% block stylesheets %}
+    <style>
+        .price {
+            float: right;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1 class="ui header">Récapitulatif de la commande</h1>
+
+    <div class="ui grid">
+        <div class="ten wide column">
+            <h2>Contenu du panier</h2>
+            {% for service in order.services %}
+                <p>{{ service.serviceName }} <span class="price">{{ (service.plan.price / 100)|format_currency('EUR') }}</span></p>
+            {% endfor %}
+
+            <h4>Résumé des réductions appliquées au panier</h4>
+            {% if discounts %}
+                {% for disc in discounts %}
+                    <p>Réduction de {{ disc.code.amount }} {% if disc.code.isPercent %}%{% else %}€{% endif %}</p>
+                {% endfor %}
+            {% else %}
+                <p>Pas de réduction</p>
+            {% endif %}
+
+            <form method="post" action="{{ path('shop_apply_discount_code') }}">
+                <div class="ui form">
+                    <div class="inline fields">
+                        <div class="field">
+                            <label for="discount-code">Code de réduction </label>
+                            <input type="text" name="discount-code">
+                        </div>
+                        <button class="ui button" type="submit">Appliquer le code de réduction</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="six wide column">
+            <h2>Paiement mensuel</h2>
+            <p>Total : {{ (total / 100)|format_currency('EUR') }}</p>
+            <p>Le paiement s'effectue mensuellement. Le contrat peut être arrêté à tout moment s'il ne possède pas d'engagement au moment de la souscription.</p>
+            <p>
+                <a href="{{ path('shop_process_payment') }}" class="ui labeled icon button">
+                    <i class="credit card icon"></i>
+                    Payer en ligne
+                </a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+
