@@ -38,19 +38,17 @@ abstract class AbstractService implements Stringable, SellableService {
 	#[ORM\Column]
 	private string $internal_service_name;
 
-	#[ORM\OneToMany(mappedBy: 'related_service', targetEntity: ServiceIp::class)]
-	private Collection $ips;
-
-	#[ORM\ManyToOne(inversedBy: 'services')]
-	private ?Order $related_order = null;
+	#[ORM\ManyToOne]
+	#[ORM\JoinColumn(nullable: false)]
+	private ?AbstractServicePlan $plan = null;
 
 	#[ORM\ManyToOne(inversedBy: 'services')]
 	#[ORM\JoinColumn(nullable: false)]
 	private ?Customer $customer = null;
 
-	public function __construct() {
-		$this->ips = new ArrayCollection();
-	}
+	#[ORM\ManyToOne(inversedBy: 'services')]
+	#[ORM\JoinColumn(nullable: false)]
+	private ?Order $related_order = null;
 
 	abstract public function getServiceName(): string;
 
@@ -82,39 +80,12 @@ abstract class AbstractService implements Stringable, SellableService {
 		return get_object_vars($this);
 	}
 
-	/**
-	 * @return Collection<int, ServiceIp>
-	 */
-	public function getIps(): Collection {
-		return $this->ips;
+	public function getPlan(): ?AbstractServicePlan {
+		return $this->plan;
 	}
 
-	public function addIp(ServiceIp $ip): self {
-		if (!$this->ips->contains($ip)) {
-			$this->ips->add($ip);
-			$ip->setRelatedService($this);
-		}
-
-		return $this;
-	}
-
-	public function removeIp(ServiceIp $ip): self {
-		if ($this->ips->removeElement($ip)) {
-			// set the owning side to null (unless already changed)
-			if ($ip->getRelatedService() === $this) {
-				$ip->setRelatedService(null);
-			}
-		}
-
-		return $this;
-	}
-
-	public function getRelatedOrder(): ?Order {
-		return $this->related_order;
-	}
-
-	public function setRelatedOrder(?Order $related_order): self {
-		$this->related_order = $related_order;
+	public function setPlan(?AbstractServicePlan $plan): self {
+		$this->plan = $plan;
 
 		return $this;
 	}
@@ -129,8 +100,14 @@ abstract class AbstractService implements Stringable, SellableService {
 		return $this;
 	}
 
-	public function getPrettyUrl(): string {
-		return sprintf('%s.infra.carow.fr', $this->__toString());
+	public function getRelatedOrder(): ?Order {
+		return $this->related_order;
+	}
+
+	public function setRelatedOrder(?Order $related_order): static {
+		$this->related_order = $related_order;
+
+		return $this;
 	}
 
 }
