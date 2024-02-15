@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Boutique - Sélection univers' %}
+
+{% block stylesheets %}
+    <style>
+        a.ns {
+            all: unset;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1 class="ui center aligned header">Sélection d'un univers</h1>
+
+    <div class="ui link cards">
+        <div class="card">
+            <div class="image">
+                <img src="https://semantic-ui.com/images/wireframe/image.png" alt="">
+            </div>
+            <div class="content">
+                <div class="header"><a href="{{ path('shop_vm_landing') }}">Univers VM</a></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="ui image">
+                <img src="https://semantic-ui.com/images/wireframe/image.png" alt="">
+            </div>
+            <div class="content">
+                <div class="header"><a href="#">Univers Voix</a></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="ui image">
+                <img src="https://semantic-ui.com/images/wireframe/image.png" alt="">
+            </div>
+            <div class="content">
+                <div class="header"><a href="{{ path('shop_wg_landing') }}">Univers VPN</a></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
