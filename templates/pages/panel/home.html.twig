@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mes services' %}
+
+{% block body %}
+    <h1 class="ui header">Mes services</h1>
+
+
+    {% if orders|length %}
+        <table class="ui table" style="margin-bottom: 15vh">
+            <thead>
+                <tr>
+                    <th>Nom du service</th>
+                    <th>Type de service</th>
+                    <th>Date de renouvellement</th>
+                    <th colspan="2">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                {% for service in order.services %}
+                    <tr>
+                        <td>{{ service.serviceName }}</td>
+                        <td>{{ service.internalServiceName }}</td>
+                        <td>{% if order.dateEndValid is not null %}{{ order.dateEndValid|date('d/m/Y') }}{% else %}En cours{% endif %}</td>
+                        <td>En fonctionnement</td>
+                        <td><a href="{{ path('panel_' ~ service ~ '_show', {id: service.id}) }}" class="ui button primary">Manager</a></td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun service lié dans votre compte</p>
+    {% endif %}
+    <p style="margin-top: auto">Commandez dès maintenant un nouveau service à la <a href="{{ path('shop_main') }}">boutique</a></p>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        let _shouldUpdate = false;
+    </script>
+    <script src="{{ asset('assets/js/orderUpdate.js') }}"></script>
+{% endblock %}
