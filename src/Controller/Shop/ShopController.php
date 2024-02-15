@@ -33,7 +33,7 @@ class ShopController extends AController {
 	 * Function used to retrieve service plan related to service type
 	 * @param string $serviceType
 	 * @param int $id
-	 * @return \App\Entity\Services\AbstractServicePlan|null
+	 * @return AbstractServicePlan|null
 	 */
 	private function getServicePlan(string $serviceType, int $id): ?AbstractServicePlan {
 		$planClass = match($serviceType) {
