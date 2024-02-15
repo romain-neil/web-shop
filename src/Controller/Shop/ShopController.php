@@ -72,7 +72,7 @@ class ShopController extends AController {
 
 		$customer = $this->em->getRepository(Customer::class)->findOneBy(['id' => $user->getId()]);
 
-		$order = $this->getOrder($request);
+		$order = $this->getOrder();
 		if ($order == null) {
 			$order = $this->createOrder($request);
 		}
@@ -132,8 +132,8 @@ class ShopController extends AController {
 	}
 
     #[Route('/cart', name: 'cart')]
-    public function showCart(Request $request): Response {
-        $order = $this->getOrder($request);
+    public function showCart(): Response {
+        $order = $this->getOrder();
 
         if ($order == null) {
             return $this->redirectToRoute('shop_main');
@@ -144,7 +144,7 @@ class ShopController extends AController {
 
 	#[Route('/cart/discount', name: 'apply_discount_code', methods: ['POST'])]
 	public function applyDiscountCode(Request $request, DiscountService $discountService, ClockInterface $clock): RedirectResponse {
-		$order = $this->getOrder($request);
+		$order = $this->getOrder();
 
 		if ($order === null) {
 			return $this->redirectToRoute('shop_main');
@@ -181,8 +181,8 @@ class ShopController extends AController {
 	 * @throws \Exception|TransportExceptionInterface
 	 */
 	#[Route('/process', name: 'process_payment')]
-	public function processPayment(Request $request, ShoppingService $service): RedirectResponse {
-		$order = $this->getOrder($request);
+	public function processPayment(ShoppingService $service): RedirectResponse {
+		$order = $this->getOrder();
 
 		if ($order == null) {
 			return $this->redirectToRoute('shop_main');
@@ -195,10 +195,8 @@ class ShopController extends AController {
 		return $this->redirect($service->persistOrder($order));
 	}
 
-    public function getOrder(Request $request): ?Order {
-        $session = $request->getSession();
-
-        return $this->getRessource(Order::class, $session->get('orderId', 0));
+    public function getOrder(): ?Order {
+		return $this->em->getRepository(Order::class)->findOneBy(['in_cart' => true, 'paid' => false, 'customer' => $this->getUser()]);
     }
 
 }
