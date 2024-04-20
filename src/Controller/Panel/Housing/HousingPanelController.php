@@ -42,8 +42,4 @@ class HousingPanelController extends ServicePanelController implements PanelInte
 		return $this->render('pages/panel/housing/show.html.twig', ['service' => $service]);
 	}
 
-	public function config(int $id, Request $request): Response {
-		// TODO: Implement config() method.
-	}
-
 }
