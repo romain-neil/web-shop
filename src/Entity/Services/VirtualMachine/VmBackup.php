@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity\Services\VirtualMachine;
 
 use Doctrine\DBAL\Types\Types;
@@ -7,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\Services\VirtualMachine\VmBackupRepository;
 
 #[ORM\Entity(repositoryClass: VmBackupRepository::class)]
-#[ORM\Table(name: 'shop.vm_backup')]
+#[ORM\Table(name: 'services.vm_backup')]
 class VmBackup {
 
 	#[ORM\Id]

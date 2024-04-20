@@ -1,8 +1,6 @@
 <?php
-
 namespace App\Entity\Services\VirtualMachine;
 
-use App\Entity\Services\AbstractServicePlan;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +8,7 @@ use App\Entity\AbstractService;
 use App\Repository\Services\VirtualMachine\VmServiceRepository;
 
 #[ORM\Entity(repositoryClass: VmServiceRepository::class)]
-#[ORM\Table(name: 'shop.vm_service')]
+#[ORM\Table(name: 'services.vm_service')]
 class VmService extends AbstractService {
 
 	#[ORM\Id]

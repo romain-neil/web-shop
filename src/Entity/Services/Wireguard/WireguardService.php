@@ -44,9 +44,9 @@ class WireguardService extends AbstractService implements \Stringable {
 
 		return $this;
 	}
-	
+
 	public function __toString(): string {
 		return 'wg';
 	}
-	
+
 }

@@ -6,7 +6,7 @@ use App\Repository\Services\Mumble\MumblePlanRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MumblePlanRepository::class)]
-#[ORM\Table(schema: 'shop')]
+#[ORM\Table(name: 'services.mumble_plan')]
 class MumblePlan extends AbstractServicePlan {
 
 	#[ORM\Id]

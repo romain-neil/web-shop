@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity\Services\VirtualMachine;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +6,7 @@ use App\Entity\Services\AbstractServicePlan;
 use App\Repository\Services\VirtualMachine\VmPlanRepository;
 
 #[ORM\Entity(repositoryClass: VmPlanRepository::class)]
-#[ORM\Table(name: 'shop.vm_plan')]
+#[ORM\Table(name: 'services.vm_plan')]
 class VmPlan extends AbstractServicePlan {
 
 	#[ORM\Id]
