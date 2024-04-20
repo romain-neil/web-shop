@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Controller\Panel\Vm;
 
+use App\Controller\Panel\ConfigurableServicePanelInterface;
 use App\Controller\Panel\PanelInterface;
 use App\Controller\Panel\ServicePanelController;
 use App\Entity\Customer;
@@ -18,7 +18,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/panel/vm', name: 'panel_vm_')]
 #[IsGranted('ROLE_USER')]
-class VmPanelController extends ServicePanelController implements PanelInterface {
+class VmPanelController extends ServicePanelController implements PanelInterface, ConfigurableServicePanelInterface {
 
 	protected VmConnector $vmConnector;
 
