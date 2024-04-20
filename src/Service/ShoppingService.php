@@ -41,4 +41,22 @@ class ShoppingService {
 		return '';
 	}
 
+	/**
+	 * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+	 * @throws \Exception
+	 */
+	public function getContrat(Order $order): array {
+		$req = $this->client->request('GET', '/api/contract' . $order->getId(), [
+			'body' => [
+				'order_id' => $order->getId()
+			]
+		]);
+
+		if ($req->getStatusCode() !== 200) {
+			throw new \Exception('Error when trying to get contract : ' . $req->getContent(false));
+		}
+
+		return json_decode($req->getContent(), true);
+	}
+
 }
