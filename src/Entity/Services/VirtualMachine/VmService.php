@@ -33,7 +33,6 @@ class VmService extends AbstractService {
 	private ?int $vm_id = null;
 
 	public function __construct() {
-		parent::__construct();
 		$this->backups = new ArrayCollection();
 	}
 
