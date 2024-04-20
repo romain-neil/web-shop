@@ -18,7 +18,7 @@ class HousingPanelController extends ServicePanelController implements PanelInte
 	public function __construct(
 		MailerInterface $mailer,
 		EntityManagerInterface $em,
-		private HousingServiceRepository $housingRepo
+		private readonly HousingServiceRepository $housingRepo
 	) {
 		parent::__construct($mailer, $em);
 	}
