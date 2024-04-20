@@ -50,7 +50,7 @@ class DatacenterInfos {
 	}
 
 	/**
-	 * Get the coordinates property.
+	 * Get the coordinates' property.
 	 *
 	 * @return Point|null
 	 */
