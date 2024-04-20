@@ -178,7 +178,7 @@ class ShopController extends AController {
 	}
 
 	/**
-	 * @throws \Exception|TransportExceptionInterface
+	 * @throws \Exception
 	 */
 	#[Route('/process', name: 'process_payment')]
 	public function processPayment(ShoppingService $service): RedirectResponse {
