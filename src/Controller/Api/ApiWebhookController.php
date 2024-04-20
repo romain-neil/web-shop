@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/api/webhook', name: 'webhook_')]
 class ApiWebhookController extends ApiController {
 
-	#[Route('/order', name: 'order_update', methods: ['POST'])]
+	#[Route('/update-order', name: 'order_update', methods: ['POST'])]
 	public function updateOrder(Request $request, OrderRepository $repository): JsonResponse {
 		//Verify request is signed
 
