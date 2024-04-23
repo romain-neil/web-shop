@@ -25,9 +25,15 @@ class HousingOption {
 	#[ORM\Column]
 	private ?int $quantity = null;
 
+	/**
+	 * @var int|null Only applicable to network options
+	 */
 	#[ORM\Column(nullable: true)]
 	private ?int $base_speed = null;
 
+	/**
+	 * @var int|null Only applicable to network options
+	 */
 	#[ORM\Column(nullable: true)]
 	private ?int $max_speed = null;
 
