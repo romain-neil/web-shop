@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: HousingServiceRepository::class)]
-#[ORM\Table(name: 'shop.housing_service')]
+#[ORM\Table(name: 'services.housing_service')]
 class HousingService extends AbstractService {
 
 	#[ORM\Id]

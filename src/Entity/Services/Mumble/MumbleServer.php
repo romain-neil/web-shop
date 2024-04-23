@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Entity\Services\Mumble;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\Services\Mumble\MumbleServerRepository;
 
 #[ORM\Entity(repositoryClass: MumbleServerRepository::class)]
-#[ORM\Table(name: 'shop.mumble_server')]
+#[ORM\Table(name: 'services.mumble_server')]
 class MumbleServer {
 
 	#[ORM\Id]

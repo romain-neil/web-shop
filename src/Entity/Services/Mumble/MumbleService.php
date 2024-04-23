@@ -1,14 +1,12 @@
 <?php
-
 namespace App\Entity\Services\Mumble;
 
-use App\Entity\Services\AbstractServicePlan;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\AbstractService;
 use App\Repository\Services\Mumble\MumbleServiceRepository;
 
 #[ORM\Entity(repositoryClass: MumbleServiceRepository::class)]
-#[ORM\Table(name: 'shop.mumble_service')]
+#[ORM\Table(name: 'services.mumble_service')]
 class MumbleService extends AbstractService {
 
 	#[ORM\Id]

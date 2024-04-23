@@ -5,6 +5,7 @@ use App\Repository\Services\Housing\HousingOptionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: HousingOptionRepository::class)]
+#[ORM\Table(name: 'services.housing_option')]
 class HousingOption {
 
 	#[ORM\Id]

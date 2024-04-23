@@ -7,7 +7,7 @@ use App\Entity\AbstractService;
 use App\Repository\Services\Wireguard\WireguardServiceRepository;
 
 #[ORM\Entity(repositoryClass: WireguardServiceRepository::class)]
-#[ORM\Table(name: 'shop.wg_service')]
+#[ORM\Table(name: 'services.wg_service')]
 class WireguardService extends AbstractService implements \Stringable {
 
 	#[ORM\Id]
