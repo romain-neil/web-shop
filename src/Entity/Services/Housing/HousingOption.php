@@ -25,10 +25,10 @@ class HousingOption {
 	#[ORM\Column]
 	private ?int $quantity = null;
 
-	#[ORM\Column]
+	#[ORM\Column(nullable: true)]
 	private ?int $base_speed = null;
 
-	#[ORM\Column]
+	#[ORM\Column(nullable: true)]
 	private ?int $max_speed = null;
 
 	/**
