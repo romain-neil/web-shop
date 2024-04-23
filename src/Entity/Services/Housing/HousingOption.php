@@ -13,6 +13,9 @@ class HousingOption {
 	#[ORM\Column]
 	private ?int $id = null;
 
+	/**
+	 * @var string|null Nom commercial de l'offre
+	 */
 	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $name = null;
 
@@ -21,6 +24,18 @@ class HousingOption {
 
 	#[ORM\Column]
 	private ?int $quantity = null;
+
+	#[ORM\Column]
+	private ?int $base_speed = null;
+
+	#[ORM\Column]
+	private ?int $max_speed = null;
+
+	/**
+	 * @var int|null Option internal code
+	 */
+	#[ORM\Column(nullable: false)]
+	private ?int $code = null;
 
 	public function getId(): ?int {
 		return $this->id;
@@ -52,6 +67,30 @@ class HousingOption {
 		$this->quantity = $quantity;
 
 		return $this;
+	}
+
+	public function getBaseSpeed(): ?int {
+		return $this->base_speed;
+	}
+
+	public function setBaseSpeed(?int $base_speed): void {
+		$this->base_speed = $base_speed;
+	}
+
+	public function getMaxSpeed(): ?int {
+		return $this->max_speed;
+	}
+
+	public function setMaxSpeed(?int $max_speed): void {
+		$this->max_speed = $max_speed;
+	}
+
+	public function getCode(): ?int {
+		return $this->code;
+	}
+
+	public function setCode(?int $code): void {
+		$this->code = $code;
 	}
 
 }
