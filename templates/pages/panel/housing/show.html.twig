@@ -40,7 +40,7 @@
 			<p>Liste des options :</p>
 			<ul>
 				{% for opt in service.options %}
-					<li>Option &laquo; {{ opt.name }} &raquo;</li>
+					<li>Option &laquo; {{ opt.name }} &raquo; {% if opt.quantity > 1 %}(x {{ opt.quantity }}{% endif %} - Détails : {{ opt }}</li>
 				{% endif %}
 			</ul>
 		</div>

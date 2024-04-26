@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: HousingOptionRepository::class)]
 #[ORM\Table(name: 'services.housing_option')]
-class HousingOption {
+class HousingOption implements \Stringable {
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
@@ -97,6 +97,17 @@ class HousingOption {
 
 	public function setCode(?int $code): void {
 		$this->code = $code;
+	}
+
+	public function __toString(): string {
+		if ($this->type === 'network') {
+			return sprintf('%d Mbps de 22h à 6h, %d Mbps le reste du temps', $this->max_speed, $this->base_speed);
+		} else if ($this->type === 'power') {
+			return sprintf('Puissance supplémentaire : %dW', $this->quantity);
+		}
+
+		//TODO ?
+		return $this->name;
 	}
 
 }
