@@ -1,11 +1,11 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\AbstractServiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AbstractServiceRepository::class)]
+#[ORM\Table(name: 'shop.abstract_service')]
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
 #[ORM\DiscriminatorMap([
