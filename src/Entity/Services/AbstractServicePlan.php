@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Entity\Services;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ServicesAbstractServicePlanRepository;
+use App\Repository\Services\AbstractServicePlanRepository;
 
-#[ORM\Entity(repositoryClass: ServicesAbstractServicePlanRepository::class)]
+#[ORM\Entity(repositoryClass: AbstractServicePlanRepository::class)]
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
 #[ORM\DiscriminatorMap([
