@@ -19,9 +19,7 @@ class DashboardController extends AbstractDashboardController {
 
 	public function configureDashboard(): Dashboard {
 		return Dashboard::new()
-			->setTitle("Panneau d'administration")
-
-			;
+			->setTitle("Panneau d'administration");
 	}
 
 	public function configureMenuItems(): iterable {
@@ -44,10 +42,6 @@ class DashboardController extends AbstractDashboardController {
 			MenuItem::subMenu('WG')->setSubItems([
 				MenuItem::linkToCrud('Tunnels wireguard', '', WireguardService::class),
 			]),
-
-//
-//
-//			MenuItem::section('')
 		];
 	}
 
@@ -56,5 +50,4 @@ class DashboardController extends AbstractDashboardController {
 		return $this->render('admin/dashboard.html.twig');
 	}
 
-	// ...
 }
