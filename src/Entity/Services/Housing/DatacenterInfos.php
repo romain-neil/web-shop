@@ -41,6 +41,14 @@ class DatacenterInfos {
 		$this->housingServices = new ArrayCollection();
 	}
 
+	public function getId(): ?int {
+		return $this->id;
+	}
+
+	public function setId(?int $id): void {
+		$this->id = $id;
+	}
+
 	/**
 	 * Get the coordinates property.
 	 *
