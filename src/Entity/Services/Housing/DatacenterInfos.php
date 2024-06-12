@@ -52,7 +52,7 @@ class DatacenterInfos {
 	/**
 	 * Get the coordinates property.
 	 *
-	 * @return \CrEOF\Spatial\PHP\Types\Geometry\Point|null
+	 * @return Point|null
 	 */
 	public function getCoordinates(): ?Point {
 		return $this->coordinates;
