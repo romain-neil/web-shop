@@ -127,10 +127,4 @@ class VmPanelController extends ServicePanelController implements PanelInterface
 		return new Response();
 	}
 
-	public function config(int $id, Request $request): Response {
-		//
-
-		return new Response();
-	}
-
 }
