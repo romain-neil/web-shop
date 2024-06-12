@@ -4,9 +4,6 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Scheb\TwoFactorBundle\Model\Totp\TotpConfiguration;
-use Scheb\TwoFactorBundle\Model\Totp\TotpConfigurationInterface;
-use Scheb\TwoFactorBundle\Model\Totp\TwoFactorInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,11 +14,10 @@ use function count;
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
 #[ORM\DiscriminatorMap([
-	'staff' => 'Staff',
 	'cust' => 'Customer'
 ])]
 #[ORM\Table(name: 'intranet.`user`')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface, EquatableInterface {
+class User implements UserInterface, PasswordAuthenticatedUserInterface, EquatableInterface {
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
@@ -256,39 +252,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
 		$this->mobile = $mobile;
 
 		return $this;
-	}
-
-	/**
-	 * @param string|null $totpSecret
-	 */
-	public function setTotpSecret(?string $totpSecret): void {
-		$this->totpSecret = $totpSecret;
-	}
-
-	public function isTotpAuthenticationEnabled(): bool {
-		return $this->getIsTotpEnabled();
-	}
-
-	public function getTotpAuthenticationUsername(): string {
-		return $this->getUserIdentifier();
-	}
-
-	public function getTotpAuthenticationConfiguration(): ?TotpConfigurationInterface {
-		return new TotpConfiguration($this->totpSecret, TotpConfiguration::ALGORITHM_SHA1, 30, 6);
-	}
-
-	/**
-	 * @return bool|null
-	 */
-	public function getIsTotpEnabled(): ?bool {
-		return $this->isTotpEnabled;
-	}
-
-	/**
-	 * @param bool|null $isTotpEnabled
-	 */
-	public function setIsTotpEnabled(?bool $isTotpEnabled): void {
-		$this->isTotpEnabled = $isTotpEnabled;
 	}
 
 }
