@@ -42,4 +42,8 @@ class HousingPanelController extends ServicePanelController implements PanelInte
 		return $this->render('pages/panel/housing/show.html.twig', ['service' => $service]);
 	}
 
+	public function onboarding(int $id, Request $request): Response {
+		return $this->redirectToRoute('panel_home');
+	}
+
 }
