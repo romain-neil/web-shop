@@ -36,4 +36,25 @@ class OrderRepository extends ServiceEntityRepository {
 		}
 	}
 
+	/**
+	 * Return the orders in cart for more than 24 hours
+	 * @throws \Exception
+	 * @return array
+	 */
+	public function findStaleOrders(): array {
+		$qb = $this->createQueryBuilder('o');
+
+		$now = new \DateTime('now', new \DateTimeZone('UTC'));
+		$cutoff = $now->modify('-24 hours');
+
+		$qb->select('o')
+			->from('Order'/** @type Order */, 'o')
+			->where('o.created <= :cutoff')
+			->andWhere('o.in_cart = true')
+			->setParameter('cutoff', $cutoff)
+		;
+
+		return $qb->getQuery()->getResult();
+	}
+
 }
