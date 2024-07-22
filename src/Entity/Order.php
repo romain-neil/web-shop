@@ -39,7 +39,7 @@ class Order {
 	#[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
 	private ?\DateTimeInterface $date_end_valid = null;
 
-	#[ORM\OneToMany(mappedBy: 'related_order', targetEntity: DiscountCodeUsage::class, fetch: 'EAGER')]
+	#[ORM\OneToMany(mappedBy: 'related_order', targetEntity: DiscountCodeUsage::class, fetch: 'EAGER', orphanRemoval: true)]
 	private Collection $discountCodeUsages;
 
 	public function __construct() {
