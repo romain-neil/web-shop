@@ -2,19 +2,24 @@
 namespace App\Service;
 
 use App\Entity\Order;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ShoppingService {
 
 	private HttpClientInterface $client;
 
-	public function __construct(HttpClientInterface $client) {
+	private UrlGeneratorInterface $url;
+
+	public function __construct(HttpClientInterface $client, UrlGeneratorInterface $urlGenerator) {
 		$this->client = $client->withOptions([
 			'headers' => [
 				'X-Auth-Token' => ''
 			],
 			'base_uri' => $_ENV['ORDER_API_URL']
 		]);
+
+		$this->url = $urlGenerator;
 	}
 
 	/**
