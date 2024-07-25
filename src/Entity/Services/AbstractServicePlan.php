@@ -19,38 +19,49 @@ abstract class AbstractServicePlan {
     #[ORM\GeneratedValue]
     #[ORM\Column]
     protected ?int $id = null;
-	
+
+	#[ORM\Column]
+	private ?string $label = null;
+
 	#[ORM\Column]
 	private ?string $commercial_name = null;
-	
+
 	#[ORM\Column]
 	private ?int $price = null;
-	
+
 	public function getId(): ?int {
         return $this->id;
     }
-	
+
+	public function getLabel(): ?string {
+		return $this->label;
+	}
+
+	public function setLabel(?string $label): void {
+		$this->label = $label;
+	}
+
 	/**
 	 * @return string
 	 */
 	public function getCommercialName(): string {
 		return $this->commercial_name;
 	}
-	
+
 	/**
 	 * @param string|null $commercial_name
 	 */
 	public function setCommercialName(?string $commercial_name): void {
 		$this->commercial_name = $commercial_name;
 	}
-	
+
 	public function getPrice(): ?int {
 		return $this->price;
 	}
-	
+
 	public function setPrice(int $price): self {
 		$this->price = $price;
-		
+
 		return $this;
 	}
 
