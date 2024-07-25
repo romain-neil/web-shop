@@ -14,7 +14,7 @@ class ShoppingService {
 	public function __construct(HttpClientInterface $client, UrlGeneratorInterface $urlGenerator) {
 		$this->client = $client->withOptions([
 			'headers' => [
-				'X-Auth-Token' => ''
+				'X-Auth-Token' => '' //TODO
 			],
 			'base_uri' => $_ENV['ORDER_API_URL']
 		]);
@@ -23,13 +23,32 @@ class ShoppingService {
 	}
 
 	/**
-	 * Persist order, then redirect user to payment url
+	 * Persist order, then return payment url
 	 * @param \App\Entity\Order $order
 	 * @throws \Exception
+	 * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
 	 * @return string
 	 */
 	public function persistOrder(Order $order): string {
-		$params = [];
+		$params = [
+			'isPro' => false,
+			'customerId' => $order->getCustomer()->getId(),
+			'document' => '', //TODO
+			'months' => 1,
+			'products' => []
+		];
+
+		$products = $order->getServices();
+		foreach ($products as $product) {
+			$plan = $product->getPlan();
+
+			$params['products'][] = [
+				'description' => $plan->getCommercialName(),
+				'label' => '',
+				'type' => '',
+				'price' => $plan->getPrice()
+			];
+		}
 
 		try {
 			$req = $this->client->request('POST', '/api/contract/persist', [
@@ -40,10 +59,37 @@ class ShoppingService {
 				throw new \Exception('Error when persisting order : ' . $req->getContent(false));
 			}
 		} catch (\Throwable $e) {
-			throw new \Exception('An exception occured when trying to persist order: ' . $e->getMessage(), $e->getCode(), $e);
+			throw new \Exception('An exception occurred when trying to persist order: ' . $e->getMessage(), $e->getCode(), $e);
 		}
 
-		return '';
+		$resp = json_decode($req->getContent(), true);
+		if ($resp['status'] !== 'success') {
+			throw new \Exception('Failed to create the contrat'); //TODO
+		}
+
+		$order = $resp['data'];
+
+		//Get invoice url
+		$req = $this->client->request('GET', '/api/orders/' . $order['ref'] . '/invoices/last');
+		if ($req->getStatusCode() !== 200) {
+			throw new \Exception('Error when retrieving last contract invoice : ' . $req->getContent(false));
+		}
+
+		$invoice = json_decode($req->getContent(), true);
+
+		$req = $this->client->request('GET', '/api/invoice/' . $invoice['ref'] . '/pay', [
+			'query' => [
+				//'return' => 'https://shop.carow.fr/account/orders'
+				'return' => $this->url->generate('account_orders_list')
+			]
+		]);
+		if ($req->getStatusCode() !== 200) {
+			throw new \Exception(''); //
+		}
+
+		$resp = json_decode($req->getContent(), true);
+
+		return $resp['data'];
 	}
 
 	/**
