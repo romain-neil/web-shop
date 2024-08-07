@@ -79,8 +79,7 @@ class ShoppingService {
 
 		$req = $this->client->request('GET', '/api/invoice/' . $invoice['ref'] . '/pay', [
 			'query' => [
-				//'return' => 'https://shop.carow.fr/account/orders'
-				'return' => $this->url->generate('account_orders_list')
+				'return' => $this->url->generate('account_orders_history')
 			]
 		]);
 		if ($req->getStatusCode() !== 200) {
