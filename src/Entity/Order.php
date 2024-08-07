@@ -29,6 +29,9 @@ class Order {
 	#[ORM\OneToMany(mappedBy: 'related_order', targetEntity: AbstractService::class, fetch: 'EAGER')]
 	private Collection $services;
 
+	#[ORM\Column]
+	private ?bool $isPending = null;
+
 	#[ORM\ManyToOne]
 	#[ORM\JoinColumn(nullable: false)]
 	private ?Customer $customer = null;
@@ -106,6 +109,14 @@ class Order {
 		}
 
 		return $this;
+	}
+
+	public function getIsPending(): ?bool {
+		return $this->isPending;
+	}
+
+	public function setIsPending(?bool $isPending): void {
+		$this->isPending = $isPending;
 	}
 
 	public function getCustomer(): ?Customer {
