@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\Infra\ServiceIp;
 use App\Entity\Services\AbstractServicePlan;
 use App\Entity\Services\SellableService;
 use Doctrine\ORM\Mapping as ORM;
