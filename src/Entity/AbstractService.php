@@ -19,8 +19,7 @@ use App\Repository\AbstractServiceRepository;
 	'vm' => 'App\Entity\Services\VirtualMachine\VmService',
 	'wireguard' => 'App\Entity\Services\Wireguard\WireguardService'
 ])]
-#[ORM\Table(name: 'shop.abstract_service')]
-abstract class AbstractService implements Stringable, SellableService {
+abstract class AbstractService implements \Stringable, SellableService {
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
