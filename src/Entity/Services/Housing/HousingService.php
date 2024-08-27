@@ -31,6 +31,8 @@ class HousingService extends AbstractService {
 
 	public function __construct() {
 		$this->options = new ArrayCollection();
+
+		parent::__construct();
 	}
 
 	public function getServiceName(): string {
