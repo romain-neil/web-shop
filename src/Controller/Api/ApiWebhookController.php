@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/webhook', name: 'webhook_')]
+#[Route('/api/webhook', name: 'api_webhook_')]
 class ApiWebhookController extends ApiController {
 
 	#[Route('/update-order', name: 'order_update', methods: ['POST'])]
