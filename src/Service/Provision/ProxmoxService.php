@@ -11,7 +11,7 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class ProxmoxService extends AbstractHTTPService {
+class ProxmoxService extends AbstractHTTPService implements AbstractProvisionerService {
 
 	private const string ISO_DIR = 'iso_stor';
 
