@@ -3,6 +3,7 @@ namespace App\Service;
 
 use App\Entity\Order;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ShoppingService {
@@ -24,9 +25,9 @@ class ShoppingService {
 
 	/**
 	 * Persist order, then return payment url
-	 * @param \App\Entity\Order $order
+	 * @param Order $order
 	 * @throws \Exception
-	 * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+	 * @throws TransportExceptionInterface
 	 * @return string
 	 */
 	public function persistOrder(Order $order): string {
@@ -92,7 +93,7 @@ class ShoppingService {
 	}
 
 	/**
-	 * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+	 * @throws TransportExceptionInterface
 	 * @throws \Exception
 	 */
 	public function getContrat(Order $order): array {
