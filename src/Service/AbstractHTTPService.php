@@ -24,13 +24,24 @@ class AbstractHTTPService {
 		$this->em = $manager;
 	}
 	
+	/**
+	 * Create the http client for the server
+	 * @param Server $server
+	 * @return void
+	 */
 	protected function createClient(Server $server): void {
 		$this->client = HttpClient::create([
 			'base_uri' => $server->getApiUrl(),
 		]);
 	}
 	
+	/**
+	 * Return the http client for the server
+	 * @param Server $server
+	 * @return HttpClientInterface
+	 */
 	protected function getClient(Server $server): HttpClientInterface {
+		$this->createClient($server);
 		return $this->client;
 	}
 	
