@@ -23,7 +23,7 @@ class ApiWebhookController extends ApiController {
 		}
 
 		$nextDueDate = $request->request->getInt('expire-date');
-		$expire = DateTime::createFromFormat('U', $nextDueDate);
+		$expire = Datetime::createFromTimestamp($nextDueDate);
 
 		if ($expire < ( new \DateTime('now'))) {
 			return $this->error('invalid next due date');
