@@ -59,9 +59,14 @@ class VmBackupPanelController extends VmPanelController {
 		} catch (\Exception) {
 			return $this->redirectToRoute('panel_home');
 		}
-
-		$this->vmConnector->removeBackup($backup);
-
+		
+		try {
+			$this->vmConnector->removeBackup($backup);
+		} catch (\Throwable) {
+			$this->addFlash('negative', 'Une erreur est survenue lors de la suppression du backup');
+			return $this->redirectToRoute('panel_vm_show', ['id' => $backup->getVm()->getId()]);
+		}
+		
 		$vmId = $backup->getVm()->getId();
 
 		return $this->redirectToRoute('panel_vm_show', ['id' => $vmId]);
