@@ -16,6 +16,9 @@ class VmBackup {
 
 	#[ORM\Column]
 	private ?int $size = null;
+	
+	#[ORM\Column(length: 255)]
+	private ?string $filename = null;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
 	private ?\DateTimeInterface $date_created = null;
@@ -36,6 +39,14 @@ class VmBackup {
 		$this->size = $size;
 
 		return $this;
+	}
+	
+	public function getFilename(): ?string {
+		return $this->filename;
+	}
+	
+	public function setFilename(?string $filename): void {
+		$this->filename = $filename;
 	}
 
 	public function getDateCreated(): ?\DateTimeInterface {
