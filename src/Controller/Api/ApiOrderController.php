@@ -16,10 +16,8 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class ApiOrderController extends ApiController {
 
 	const array ORDER_ATTRS = ['date_created', 'paid'];
+	const array CONTRACT_ATTRS = ['id', 'date_start', 'date_end', 'price', 'status'];
 
-	/**
-	 * @throws ExceptionInterface
-	 */
 	#[Route('/{id}/status')]
 	public function status(int $id): JsonResponse {
 		/** @var Customer $customer */
@@ -35,13 +33,16 @@ class ApiOrderController extends ApiController {
 		if ($order->getCustomer() !== $customer) {
 			return $this->permError();
 		}
+		
+		try {
+			$serialized = $this->serialize($order, self::ORDER_ATTRS);
+		} catch (\Throwable $exception) {
+			return $this->error($exception->getMessage());
+		}
 
-		return $this->success('no error', $this->serialize($order, self::ORDER_ATTRS));
+		return $this->success('no error', $serialized);
 	}
 
-	/**
-	 * @throws ExceptionInterface
-	 */
 	#[Route('/pending', name: 'show_pending')]
 	public function showPending(OrderRepository $repository): JsonResponse {
 		/** @var Customer $customer */
@@ -52,13 +53,16 @@ class ApiOrderController extends ApiController {
 			'paid' => false,
 			'in_cart' => false
 		]);
+		
+		try {
+			$serialized = $this->serialize($orders, self::ORDER_ATTRS);
+		} catch (\Throwable $exception) {
+			return $this->error($exception->getMessage());
+		}
 
-		return $this->success('no error', $this->serialize($orders, self::ORDER_ATTRS));
+		return $this->success('no error', $serialized);
 	}
 
-	/**
-	 * @throws TransportExceptionInterface
-	 */
 	#[Route('{id}/details', name: 'details')]
 	public function showDetails(OrderRepository $repository, ShoppingService $service, int $id): JsonResponse {
 		/** @var Customer $customer */
@@ -73,9 +77,14 @@ class ApiOrderController extends ApiController {
 			return $this->notFound();
 		}
 
-		$contrat = $service->getContrat($order);
+		try {
+			$contrat = $service->getContrat($order);
+			$serialized = $this->serialize($contrat, self::CONTRACT_ATTRS);
+		} catch (\Throwable $exception) {
+			return $this->error($exception->getMessage());
+		}
 
-		return $this->success('found', []);
+		return $this->success('found', $serialized);
 	}
 
 }
