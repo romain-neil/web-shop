@@ -16,13 +16,13 @@ class DiscountService {
 	}
 
 	/**
-	 * Does the given discount can be applied to the specified order ?
+	 * Return true if discount can be applied to order
 	 * @param Discount $discount
 	 * @param Order $order
 	 * @return bool
 	 */
 	public function canApply(Discount $discount, Order $order): bool {
-		//Check if code is allowed to be used multiple times in current order
+		//Check if code is allowed to be used multiple times in the current order
 		if (!$discount->isAllowMultipleUse()) {
 			$codeUsages = $order->getDiscountCodeUsages();
 
