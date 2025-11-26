@@ -15,6 +15,9 @@ class VmBackupPanelController extends VmPanelController {
 	}
 
 	/**
+	 * Check if the current user has access to the specified backup
+	 * @param int $id
+	 * @return VmBackup
 	 * @throws \Exception
 	 */
 	private function checkBackupAccess(int $id): VmBackup {
@@ -36,7 +39,12 @@ class VmBackupPanelController extends VmPanelController {
 
 		return $backup;
 	}
-
+	
+	/**
+	 * Restore the specified backup
+	 * @param int $backup
+	 * @return Response
+	 */
 	#[Route('/{backup}/restore', name: 'restore')]
 	public function restoreBackup(int $backup): Response {
 		try {
@@ -51,7 +59,12 @@ class VmBackupPanelController extends VmPanelController {
 
 		return $this->redirectToRoute('panel_vm_show', ['id' => $vmId]);
 	}
-
+	
+	/**
+	 * Delete the specified backup
+	 * @param int $backup
+	 * @return RedirectResponse
+	 */
 	#[Route('/{backup}/delete', name: 'delete')]
 	public function deleteBackup(int $backup): RedirectResponse {
 		try {

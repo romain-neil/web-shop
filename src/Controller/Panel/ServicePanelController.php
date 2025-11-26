@@ -9,10 +9,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Controller responsible for the panel pages
+ */
 #[Route('/panel', name: 'panel_')]
 #[IsGranted('ROLE_USER')]
 class ServicePanelController extends AController {
-
+	
+	/**
+	 * Get all orders of the specified customer
+	 * @param Customer $customer
+	 * @return array
+	 */
 	private function getCustomerServices(Customer $customer): array {
 		return $this->em->getRepository(Order::class)->findBy(['customer' => $customer, 'in_cart' => false, 'paid' => true]);
 	}

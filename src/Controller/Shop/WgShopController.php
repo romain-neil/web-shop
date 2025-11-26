@@ -6,6 +6,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Shop controller for wireguard services
+ */
 #[Route('/shop/wg', name: 'shop_wg_')]
 #[IsGranted('ROLE_USER')]
 class WgShopController extends AbstractShopController {

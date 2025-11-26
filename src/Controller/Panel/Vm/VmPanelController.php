@@ -112,14 +112,22 @@ class VmPanelController extends ServicePanelController implements PanelInterface
 
 		return $this->render('pages/panel/vm/show.html.twig', ['vm' => $vm]);
 	}
-
+	
+	/**
+	 * Start the specified vm
+	 * @return Response
+	 */
 	#[Route('/{id}/start', name: 'start')]
 	public function start(): Response {
 		//
 
 		return new Response();
 	}
-
+	
+	/**
+	 * Stop the specified vm
+	 * @return Response
+	 */
 	#[Route('/{id}/stop', name: 'stop')]
 	public function stop(): Response {
 		//

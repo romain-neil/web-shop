@@ -129,7 +129,11 @@ class ShopController extends AController {
 
 		return $this->redirectToRoute('shop_cart');
 	}
-
+	
+	/**
+	 * Show the cart page
+	 * @return Response
+	 */
     #[Route('/cart', name: 'cart')]
     public function showCart(): Response {
         $order = $this->getOrder();

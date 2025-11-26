@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Shop controller for virtual machine services
+ */
 #[Route('/shop/vm', name: 'shop_vm_')]
 #[IsGranted('ROLE_USER')]
 class VmShopController extends AbstractShopController {
