@@ -94,7 +94,7 @@ class ShopController extends AController {
     /**
      * @throws Exception
      */
-	public function createOrder(Request $request): Order {
+	protected function createOrder(Request $request): Order {
 		/** @var Customer $customer */
 		$customer = $this->getUser();
 
