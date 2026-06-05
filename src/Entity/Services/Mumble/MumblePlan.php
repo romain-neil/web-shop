@@ -9,11 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'services.mumble_plan')]
 class MumblePlan extends AbstractServicePlan {
 
-	#[ORM\Id]
-	#[ORM\GeneratedValue]
-	#[ORM\Column]
-	protected ?int $id = null;
-
 	#[ORM\Column]
 	private ?int $slots = null;
 
