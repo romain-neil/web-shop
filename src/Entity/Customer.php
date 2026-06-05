@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
 #[ORM\Table(name: 'intranet.customer')]
-class Customer extends User {
+final class Customer extends User {
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
@@ -21,9 +21,12 @@ class Customer extends User {
 
 	#[ORM\Column(type: 'string', length: 255, nullable: true)]
 	private ?string $client_code;
+	
+	#[ORM\Column(type: 'boolean', options: ['default' => false])]
+	private ?bool $is_company = false;
 
-	#[ORM\Column]
-	private ?bool $is_vat_liable = null;
+	#[ORM\Column(type: 'boolean', options: ['default' => false])]
+	private ?bool $is_vat_liable = false;
 
 	#[ORM\Column(length: 14, nullable: true)]
 	private ?string $siret = null;
@@ -77,6 +80,14 @@ class Customer extends User {
 		$this->client_code = $client_code;
 
 		return $this;
+	}
+	
+	public function getIsCompany(): ?bool {
+		return $this->is_company;
+	}
+	
+	public function setIsCompany(?bool $is_company): void {
+		$this->is_company = $is_company;
 	}
 
 	public function isIsVatLiable(): ?bool {
