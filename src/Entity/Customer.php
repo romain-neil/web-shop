@@ -52,12 +52,17 @@ final class Customer extends User {
 	#[ORM\OneToMany(mappedBy: 'customer', targetEntity: AbstractService::class)]
 	private Collection $services;
 
+    /**
+     * @var Collection<int, SupportCase>
+     */
+    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: SupportCase::class)]
+    private Collection $supportCases;
+
 	public function __construct() {
 		$this->services = new ArrayCollection();
-	}
-
-	public function getId(): ?int {
-		return $this->id;
+        $this->supportCases = new ArrayCollection();
+		
+		parent::__construct();
 	}
 
 	public function getInternalClientId(): ?int {
@@ -197,4 +202,33 @@ final class Customer extends User {
 		return $this;
 	}
 
+    /**
+     * @return Collection<int, SupportCase>
+     */
+    public function getSupportCases(): Collection
+    {
+        return $this->supportCases;
+    }
+
+    public function addSupportCase(SupportCase $supportCase): static
+    {
+        if (!$this->supportCases->contains($supportCase)) {
+            $this->supportCases->add($supportCase);
+            $supportCase->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSupportCase(SupportCase $supportCase): static {
+	    if ($this->supportCases->removeElement($supportCase)) {
+		    // set the owning side to null (unless already changed)
+		    if ($supportCase->getCustomer() === $this) {
+			    $supportCase->setCustomer(null);
+		    }
+	    }
+	    
+	    return $this;
+    }
+	
 }
