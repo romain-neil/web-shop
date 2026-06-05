@@ -11,16 +11,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: 'intranet.customer')]
 final class Customer extends User {
 
-	#[ORM\Id]
-	#[ORM\GeneratedValue]
-	#[ORM\Column]
-	private ?int $id = null;
-
 	#[ORM\Column(name: 'internal_client_id', type: 'integer', unique: true, nullable: true)]
 	private ?int $internalClientId;
 
 	#[ORM\Column(type: 'string', length: 255, nullable: true)]
 	private ?string $client_code;
+	
+	#[ORM\Column(type: 'string', length: 255, nullable: true)]
+	private ?string $companyName = null;
 	
 	#[ORM\Column(type: 'boolean', options: ['default' => false])]
 	private ?bool $is_company = false;
@@ -80,6 +78,14 @@ final class Customer extends User {
 		$this->client_code = $client_code;
 
 		return $this;
+	}
+	
+	public function getCompanyName(): ?string {
+		return $this->companyName;
+	}
+	
+	public function setCompanyName(?string $companyName): void {
+		$this->companyName = $companyName;
 	}
 	
 	public function getIsCompany(): ?bool {
