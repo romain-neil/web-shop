@@ -10,11 +10,6 @@ use App\Repository\Services\Wireguard\WireguardServiceRepository;
 #[ORM\Table(name: 'services.wg_service')]
 class WireguardService extends AbstractService implements \Stringable {
 
-	#[ORM\Id]
-	#[ORM\GeneratedValue]
-	#[ORM\Column]
-	protected ?int $id = null;
-
 	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $ipv4 = null;
 

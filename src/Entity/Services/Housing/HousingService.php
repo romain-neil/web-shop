@@ -11,11 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'services.housing_service')]
 class HousingService extends AbstractService {
 
-	#[ORM\Id]
-	#[ORM\GeneratedValue]
-	#[ORM\Column]
-	protected ?int $id = null;
-
 	/**
 	 * @var int|null Nombre de U dans le datacenter
 	 */

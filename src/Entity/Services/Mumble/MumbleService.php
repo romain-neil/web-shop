@@ -9,11 +9,6 @@ use App\Repository\Services\Mumble\MumbleServiceRepository;
 #[ORM\Table(name: 'services.mumble_service')]
 class MumbleService extends AbstractService {
 
-	#[ORM\Id]
-	#[ORM\GeneratedValue]
-	#[ORM\Column]
-	protected ?int $id = null;
-
 	#[ORM\Column]
 	private ?int $channelCounts = null;
 

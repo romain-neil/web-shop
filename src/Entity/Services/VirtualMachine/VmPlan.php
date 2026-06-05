@@ -9,11 +9,6 @@ use App\Repository\Services\VirtualMachine\VmPlanRepository;
 #[ORM\Table(name: 'services.vm_plan')]
 class VmPlan extends AbstractServicePlan {
 
-	#[ORM\Id]
-	#[ORM\GeneratedValue]
-	#[ORM\Column]
-	protected ?int $id = null;
-
 	#[ORM\Column]
 	private ?int $storage = null;
 

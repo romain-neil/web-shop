@@ -9,13 +9,4 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'services.wg_plan')]
 class WgPlan extends AbstractServicePlan {
 
-	#[ORM\Id]
-	#[ORM\GeneratedValue]
-	#[ORM\Column]
-	protected ?int $id = null;
-
-	public function getId(): ?int {
-		return $this->id;
-	}
-
 }

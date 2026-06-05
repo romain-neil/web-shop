@@ -11,11 +11,6 @@ use App\Repository\Services\VirtualMachine\VmServiceRepository;
 #[ORM\Table(name: 'services.vm_service')]
 class VmService extends AbstractService {
 
-	#[ORM\Id]
-	#[ORM\GeneratedValue]
-	#[ORM\Column]
-	protected ?int $id = null;
-
 	#[ORM\ManyToOne]
 	#[ORM\JoinColumn(nullable: true)]
 	private ?OsDistribution $distrib = null;
