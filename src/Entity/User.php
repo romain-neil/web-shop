@@ -246,5 +246,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
 
 		return $this;
 	}
-
+	
+	public function getIsTotpEnabled(): ?bool {
+		return $this->isTotpEnabled;
+	}
+	
+	public function setIsTotpEnabled(?bool $isTotpEnabled): void {
+		$this->isTotpEnabled = $isTotpEnabled;
+	}
+	
 }
