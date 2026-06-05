@@ -87,13 +87,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
 	}
 
 	/**
-	 * @deprecated since Symfony 5.3, use getUserIdentifier instead
-	 */
-	public function getUsername(): string {
-		return $this->email;
-	}
-
-	/**
 	 * @see UserInterface
 	 */
 	public function getRoles(): array {
