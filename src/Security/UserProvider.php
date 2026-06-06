@@ -18,7 +18,7 @@ class UserProvider implements UserProviderInterface {
 	}
 
 	public function refreshUser(UserInterface $user): UserInterface {
-		return $user;
+		return $this->loadUserByIdentifier($user->getUserIdentifier());
 	}
 
 	public function supportsClass(string $class): bool {
