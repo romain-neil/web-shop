@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity\Services\Mumble;
 
+use App\Service\Provision\IAbstractProvisioner;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\AbstractService;
 use App\Repository\Services\Mumble\MumbleServiceRepository;
@@ -29,5 +30,9 @@ class MumbleService extends AbstractService {
 	public function __toString(): string {
 		return 'mumble';
 	}
-
+	
+	public function getProvisioner(): ?IAbstractProvisioner {
+		// TODO: Implement getProvisioner() method.
+		return null;
+	}
 }

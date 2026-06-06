@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity\Services\VirtualMachine;
 
+use App\Service\Provision\IAbstractProvisioner;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -81,5 +82,9 @@ class VmService extends AbstractService {
 	public function __toString(): string {
 		return 'vm';
 	}
-
+	
+	public function getProvisioner(): ?IAbstractProvisioner {
+		// TODO: Implement getProvisioner() method.
+		return null;
+	}
 }

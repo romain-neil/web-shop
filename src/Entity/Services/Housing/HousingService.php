@@ -3,6 +3,7 @@ namespace App\Entity\Services\Housing;
 
 use App\Entity\AbstractService;
 use App\Repository\Services\Housing\HousingServiceRepository;
+use App\Service\Provision\IAbstractProvisioner;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -76,5 +77,9 @@ class HousingService extends AbstractService {
 
 		return $this;
 	}
-
+	
+	public function getProvisioner(): ?IAbstractProvisioner {
+		// TODO: Implement getProvisioner() method.
+		return null;
+	}
 }

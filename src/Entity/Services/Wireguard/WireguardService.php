@@ -1,11 +1,15 @@
 <?php
 namespace App\Entity\Services\Wireguard;
 
-use App\Entity\Services\AbstractServicePlan;
+use App\Service\Provision\IAbstractProvisioner;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\AbstractService;
 use App\Repository\Services\Wireguard\WireguardServiceRepository;
 
+/**
+ * Represent a Wireguard service
+ * Network schema : [wg client] <-> [wg server] <-> [internet]
+ */
 #[ORM\Entity(repositoryClass: WireguardServiceRepository::class)]
 #[ORM\Table(name: 'services.wg_service')]
 class WireguardService extends AbstractService implements \Stringable {
@@ -43,5 +47,8 @@ class WireguardService extends AbstractService implements \Stringable {
 	public function __toString(): string {
 		return 'wg';
 	}
-
+	
+	public function getProvisioner(): ?IAbstractProvisioner {
+		return null;
+	}
 }
